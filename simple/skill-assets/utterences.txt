@@ -1,0 +1,6 @@
+GetNextRideIntent a ride
+GetNextRideIntent the next
+GetNextRideIntent the next ride
+GetNextRideIntent my next ride
+GetNextRideIntent tell me my next ride
+GetNextRideIntent give me a ride
