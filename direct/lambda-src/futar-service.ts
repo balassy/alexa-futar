@@ -2,7 +2,7 @@
 
 import * as moment from 'moment';
 import * as momentTimezone from 'moment-timezone';
-import rp from 'request-promise-lite';
+import * as rp from 'request-promise-lite';
 
 const TIMEZONE_NAME = 'Europe/Budapest';
 const MINUTES_AFTER = 90;
@@ -34,6 +34,10 @@ export default class FutarService {
 
         if (body.code !== 200) {
           throw new Error(`The Futár webservice returned a response body with a code different than 200: ${response.code}`);
+        }
+
+        if (body.data.entry.stopTimes.length === 0) {
+          throw new Error('Sorry, there are no more rides today.');
         }
 
         const currentTimeInMilliseconds = body.currentTime;

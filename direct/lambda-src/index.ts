@@ -1,6 +1,6 @@
 'use strict';
 
-import Alexa from 'alexa-sdk';
+import * as Alexa from 'alexa-sdk';
 import FutarService from './futar-service';
 
 const SKILL_NAME = 'Next Ride';
@@ -35,8 +35,8 @@ const handlers = {
         _emitSuccess(this, speechOutput);
       })
       .catch((err: Error) => {
-        console.log('CATCH ERROR: ' + JSON.stringify(err));
-        const details = 'Sorry, your webservice call failed! More information: ${JSON.stringify(err)}';
+        console.log('CATCH ERROR: ', err);
+        const details = `Sorry, your webservice call failed! More information: ${err.message}`;
         _emitFailure(this, details);
       });
   }
