@@ -1,6 +1,6 @@
 'use strict';
 
-const http = require('http');
+const rp = require('request-promise');
 const Alexa = require('alexa-sdk');
 const FutarService = require('./futar-service');
 
@@ -17,28 +17,50 @@ const handlers = {
     this.emit('GetNextRide');
   },
   'GetNextRide': function () {
-    http.get(SERVICE_URL, (result) => {
-      let body = '';
+    const options = {
+      method: 'GET',
+      uri: SERVICE_URL,
+      resolveWithFullResponse: true,
+      json: true
+    };
 
-      result.on('data', (chunk) => {
-        body += chunk;
+    rp(options)
+      .then((response) => {
+        if (response.statusCode !== 200) {
+          const details = 'Sorry, your webservice call failed with HTTP ${response.statusCode} status code! The server returned: ${JSON.stringify(response)}';
+          _emitFailure(details);
+          return;
+        }
+
+        const speechOutput = buildSpeechOutputFromResponse(response.body);
+        _emitSuccess(this, speechOutput);
+      })
+      .catch((err) => {
+        const details = 'Sorry, your webservice call failed! More information: ${JSON.stringify(err)}';
+        _emitFailure(this, details);
       });
-
-      result.on('end', () => {
-        const response = JSON.parse(body);
-        const speechOutput = buildSpeechOutputFromResponse(response);
-
-        this.emit(':tell', speechOutput);
-      });
-    }).on('error', (err) => {
-      const speechOutput = 'Sorry, your webservice call failed! Check the Alexa app for more details.';
-      const cardTitle = SKILL_NAME;
-      const cardContent = 'Sorry, your webservice call failed! ' + JSON.stringify(err);
-
-      this.emit(':tellWithCard', speechOutput, cardTitle, cardContent);
-    });
   }
 };
+
+/**
+ * Produces a successful response to the user.
+ * @param {string} speechOutput - The message to say to the user.
+ */
+function _emitSuccess(handlerContext, speechOutput) {
+  handlerContext.emit(':tell', speechOutput);
+}
+
+/**
+ * Produces a failure response to the user. 
+ * @param {string} details - Additional information about the failure.
+ */
+function _emitFailure(handlerContext, details) {
+  const speechOutput = 'Sorry, your webservice call failed! Check the Alexa app for more details.';
+  const cardTitle = SKILL_NAME;
+  const cardContent = details;
+  handlerContext.emit(':tellWithCard', speechOutput, cardTitle, cardContent);
+}
+
 
 function buildSpeechOutputFromResponse(response) {
   if (response.version !== 2) {
@@ -60,7 +82,7 @@ function buildSpeechOutputFromResponse(response) {
   const futarService = new FutarService();
   const ride = futarService.getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
 
-  if(ride.firstRideRelativeTimeInMinutes >= 8) {
+  if (ride.firstRideRelativeTimeInMinutes >= 8) {
     return `Your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}.  You can easily catch it. The second tram goes ${ride.secondRideRelativeTimeHumanized} later at ${ride.secondRideAbsoluteTime}.`;
   }
   else if (ride.firstRideRelativeTimeInMinutes < 8 && ride.firstRideRelativeTimeInMinutes >= 5) {
