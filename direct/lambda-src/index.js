@@ -1,6 +1,6 @@
 'use strict';
 
-const rp = require('request-promise');
+const rp = require('request-promise-lite');
 const Alexa = require('alexa-sdk');
 const FutarService = require('./futar-service');
 
@@ -18,13 +18,11 @@ const handlers = {
   },
   'GetNextRide': function () {
     const options = {
-      method: 'GET',
-      uri: SERVICE_URL,
       resolveWithFullResponse: true,
       json: true
     };
 
-    rp(options)
+    rp.get(SERVICE_URL, options)
       .then((response) => {
         if (response.statusCode !== 200) {
           const details = 'Sorry, your webservice call failed with HTTP ${response.statusCode} status code! The server returned: ${JSON.stringify(response)}';
