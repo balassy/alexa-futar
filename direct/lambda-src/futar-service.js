@@ -14,13 +14,15 @@ module.exports = class FutarService {
 
     const firstRideRelativeTime = moment.duration(firstRideTimeInLocalTime.diff(currentTimeInLocalTime));
     const secondRideRelativeTime = moment.duration(secondRideTimeInLocalTime.diff(firstRideTimeInLocalTime));
+    const combinedRelativeTime = moment.duration(secondRideTimeInLocalTime.diff(currentTimeInLocalTime));
 
     return {
       firstRideAbsoluteTime: firstRideTimeInLocalTime.format('HH:mm'),
       firstRideRelativeTimeInMinutes: firstRideRelativeTime.minutes(),
       firstRideRelativeTimeHumanized: firstRideRelativeTime.humanize(),
       secondRideAbsoluteTime: secondRideTimeInLocalTime.format('HH:mm'),
-      secondRideRelativeTimeHumanized: secondRideRelativeTime.humanize()
+      secondRideRelativeTimeHumanized: secondRideRelativeTime.humanize(),
+      combinedRelativeTimeHumanized: combinedRelativeTime.humanize()
     };
   }
 

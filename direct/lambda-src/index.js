@@ -60,11 +60,18 @@ function buildSpeechOutputFromResponse(response) {
   const futarService = new FutarService();
   const ride = futarService.getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
 
-  const actionSentence = ride.firstRideRelativeTimeInMinutes < 4
-    ? 'You better run!'
-    : 'You can easily catch it.';
-
-  return `Your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}.  ${actionSentence} After that you have to wait another ${ride.secondRideRelativeTimeHumanized} until ${ride.secondRideAbsoluteTime}.`;
+  if(ride.firstRideRelativeTimeInMinutes >= 8) {
+    return `Your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}.  You can easily catch it. The second tram goes ${ride.secondRideRelativeTimeHumanized} later at ${ride.secondRideAbsoluteTime}.`;
+  }
+  else if (ride.firstRideRelativeTimeInMinutes < 8 && ride.firstRideRelativeTimeInMinutes >= 5) {
+    return `Your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}.  You can still catch it. After that you have to wait another ${ride.secondRideRelativeTimeHumanized} until ${ride.secondRideAbsoluteTime}.`;
+  }
+  else if (ride.firstRideRelativeTimeInMinutes < 5 && ride.firstRideRelativeTimeInMinutes >= 2) {
+    return `Your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}.  You better run, GO, GO, GO! Or you can wait ${ride.combinedRelativeTimeHumanized} until ${ride.secondRideAbsoluteTime} for the tram after the next one.`;
+  }
+  else {
+    return `Sorry, your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}, and you probably will not get it. You should wait ${ride.combinedRelativeTimeHumanized} until ${ride.secondRideAbsoluteTime} for the tram after this one.`;
+  }
 }
 
 exports.handler = (event, context) => {
