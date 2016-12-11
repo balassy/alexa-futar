@@ -1,0 +1,21 @@
+{
+  "name": "alexa-futar",
+  "version": "1.0.0",
+  "description": "Alexa skill to query Budapest public transport information.",
+  "main": "index.js",
+  "dependencies": {
+    "alexa-sdk": "^1.0.6",
+    "moment": "^2.17.1",
+    "moment-timezone": "^0.5.10"
+  },
+  "scripts": {
+    "build": "node index.js"
+  },
+  "keywords": [
+    "alexa",
+    "aws",
+    "lambda"
+  ],
+  "author": "György Balássy (https://hu.linkedin.com/in/balassy/)",
+  "license": "MIT"
+}
