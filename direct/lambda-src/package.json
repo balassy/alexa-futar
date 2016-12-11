@@ -10,7 +10,7 @@
     "request-promise-lite": "^0.8.1"
   },
   "scripts": {
-    "build": "node index.js"
+    "build": "./node_modules/.bin/tsc"
   },
   "keywords": [
     "alexa",
@@ -18,5 +18,11 @@
     "lambda"
   ],
   "author": "György Balássy (https://hu.linkedin.com/in/balassy/)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/alexa-sdk": "^1.0.3",
+    "@types/aws-lambda": "0.0.5",
+    "@types/moment-timezone": "^0.2.32",
+    "typescript": "^2.1.4"
+  }
 }

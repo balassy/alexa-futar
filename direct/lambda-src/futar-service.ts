@@ -1,15 +1,14 @@
 'use strict';
 
-const moment = require('moment');
-const momentTimezone = require('moment-timezone');
-const rp = require('request-promise-lite');
+import * as moment from 'moment';
+import * as momentTimezone from 'moment-timezone';
+import rp from 'request-promise-lite';
 
 const TIMEZONE_NAME = 'Europe/Budapest';
 const MINUTES_AFTER = 90;
 
-module.exports = class FutarService {
-
-  getNextRides(stopId) {
+export default class FutarService {
+  getNextRides(stopId: string) {
     const url = `http://futar.bkk.hu/bkk-utvonaltervezo-api/ws/otp/api/where/arrivals-and-departures-for-stop.json?stopId=${stopId}&onlyDepartures=true&minutesBefore=0&minutesAfter=${MINUTES_AFTER}`;
 
     const options = {
@@ -46,7 +45,7 @@ module.exports = class FutarService {
       })
   }
 
-  _getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide) {
+  _getNextRidesInLocalTime(currentTimeInMilliseconds: number, firstRide: Ride, secondRide: Ride): RideTimes {
     const currentTimeInLocalTime = this._getTimeInLocalTime(currentTimeInMilliseconds);
     const firstRideTimeInLocalTime = this._getRideTimeInLocalTime(firstRide);
     const secondRideTimeInLocalTime = this._getRideTimeInLocalTime(secondRide);
@@ -65,13 +64,13 @@ module.exports = class FutarService {
     };
   }
 
-  _getRideTimeInLocalTime(ride) {
+  _getRideTimeInLocalTime(ride: Ride): moment.Moment {
     const rideTimeInMilliseconds = (ride.predictedArrivalTime || ride.arrivalTime || ride.departureTime) * 1000;
     const rideTimeInLocalTime = this._getTimeInLocalTime(rideTimeInMilliseconds);
     return rideTimeInLocalTime;
   }
 
-  _getTimeInLocalTime(timeInMilliseconds) {
+  _getTimeInLocalTime(timeInMilliseconds: number): moment.Moment {
     const timeInGmt = new Date(timeInMilliseconds);
     const timeInLocalTime = momentTimezone(timeInGmt).tz(TIMEZONE_NAME);
     return timeInLocalTime;

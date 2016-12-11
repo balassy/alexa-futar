@@ -1,7 +1,7 @@
 'use strict';
 
-const Alexa = require('alexa-sdk');
-const FutarService = require('./futar-service');
+import Alexa from 'alexa-sdk';
+import FutarService from './futar-service';
 
 const SKILL_NAME = 'Next Ride';
 const TRAM_STOP_ID = 'BKK_F02296';
@@ -16,8 +16,8 @@ const handlers = {
   'GetNextRide': function () {
     const futarService = new FutarService();
     futarService.getNextRides(TRAM_STOP_ID)
-      .then(rides => {
-        let speechOutput;
+      .then((rides: RideTimes) => {
+        let speechOutput: string;
 
         if (rides.firstRideRelativeTimeInMinutes >= 8) {
           speechOutput = `Your next tram goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can easily catch it. The second tram goes ${rides.secondRideRelativeTimeHumanized} later at ${rides.secondRideAbsoluteTime}.`;
@@ -34,7 +34,7 @@ const handlers = {
 
         _emitSuccess(this, speechOutput);
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.log('CATCH ERROR: ' + JSON.stringify(err));
         const details = 'Sorry, your webservice call failed! More information: ${JSON.stringify(err)}';
         _emitFailure(this, details);
@@ -46,7 +46,7 @@ const handlers = {
  * Produces a successful response to the user.
  * @param {string} speechOutput - The message to say to the user.
  */
-function _emitSuccess(handlerContext, speechOutput) {
+function _emitSuccess(handlerContext: AlexaHandler, speechOutput: string) {
   handlerContext.emit(':tell', speechOutput);
 }
 
@@ -54,15 +54,15 @@ function _emitSuccess(handlerContext, speechOutput) {
  * Produces a failure response to the user. 
  * @param {string} details - Additional information about the failure.
  */
-function _emitFailure(handlerContext, details) {
+function _emitFailure(handlerContext: AlexaHandler, details: string) {
   const speechOutput = 'Sorry, your webservice call failed! Check the Alexa app for more details.';
   const cardTitle = SKILL_NAME;
   const cardContent = details;
   handlerContext.emit(':tellWithCard', speechOutput, cardTitle, cardContent);
 }
 
-exports.handler = (event, context) => {
+export function handler(event: any, context: any) {
   const alexa = Alexa.handler(event, context);
   alexa.registerHandlers(handlers);
   alexa.execute();
-};
+}
