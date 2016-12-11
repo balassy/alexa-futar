@@ -54,18 +54,17 @@ function buildSpeechOutputFromResponse(response) {
   }
 
   const currentTimeInMilliseconds = response.currentTime;
-
-  const nextRide = response.data.entry.stopTimes[0];
-  const nextRideTimeInSeconds = nextRide.predictedArrivalTime || nextRide.arrivalTime || nextRide.departureTime;
+  const firstRide = response.data.entry.stopTimes[0];
+  const secondRide = response.data.entry.stopTimes[1];
 
   const futarService = new FutarService();
-  const ride = futarService.getNextRideInLocalTime(currentTimeInMilliseconds, nextRideTimeInSeconds * 1000);
+  const ride = futarService.getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
 
-  const actionSentence = ride.relativeTimeInMinutes < 4
+  const actionSentence = ride.firstRideRelativeTimeInMinutes < 4
     ? 'You better run!'
     : 'You can easily catch it.';
 
-  return `Your next tram goes in ${ride.relativeTimeHumanized} at ${ride.absoluteTime}.  ${actionSentence}`;
+  return `Your next tram goes in ${ride.firstRideRelativeTimeHumanized} at ${ride.firstRideAbsoluteTime}.  ${actionSentence} After that you have to wait another ${ride.secondRideRelativeTimeHumanized} until ${ride.secondRideAbsoluteTime}.`;
 }
 
 exports.handler = (event, context) => {

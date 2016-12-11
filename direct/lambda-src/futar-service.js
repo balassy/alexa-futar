@@ -7,19 +7,32 @@ const TIMEZONE_NAME = 'Europe/Budapest';
 
 module.exports = class FutarService {
 
-  getNextRideInLocalTime(currentTimeInMilliseconds, rideTimeInMilliseconds) {
-    const currentTimeInGmt = new Date(currentTimeInMilliseconds);
-    const currentTimeInLocalTime = momentTimezone(currentTimeInGmt).tz(TIMEZONE_NAME);
+  getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide) {
+    const currentTimeInLocalTime = this._getTimeInLocalTime(currentTimeInMilliseconds);
+    const firstRideTimeInLocalTime = this._getRideTimeInLocalTime(firstRide);
+    const secondRideTimeInLocalTime = this._getRideTimeInLocalTime(secondRide);
 
-    const rideTimeInGmt = new Date(rideTimeInMilliseconds);
-    const rideTimeInLocalTime = momentTimezone(rideTimeInGmt).tz(TIMEZONE_NAME);
-
-    const relativeTime = moment.duration(rideTimeInLocalTime.diff(currentTimeInLocalTime));
+    const firstRideRelativeTime = moment.duration(firstRideTimeInLocalTime.diff(currentTimeInLocalTime));
+    const secondRideRelativeTime = moment.duration(secondRideTimeInLocalTime.diff(firstRideTimeInLocalTime));
 
     return {
-      absoluteTime: rideTimeInLocalTime.format('HH:mm'),
-      relativeTimeInMinutes: relativeTime.minutes(),
-      relativeTimeHumanized: relativeTime.humanize()
+      firstRideAbsoluteTime: firstRideTimeInLocalTime.format('HH:mm'),
+      firstRideRelativeTimeInMinutes: firstRideRelativeTime.minutes(),
+      firstRideRelativeTimeHumanized: firstRideRelativeTime.humanize(),
+      secondRideAbsoluteTime: secondRideTimeInLocalTime.format('HH:mm'),
+      secondRideRelativeTimeHumanized: secondRideRelativeTime.humanize()
     };
+  }
+
+  _getRideTimeInLocalTime(ride) {
+    const rideTimeInMilliseconds = (ride.predictedArrivalTime || ride.arrivalTime || ride.departureTime) * 1000;
+    const rideTimeInLocalTime = this._getTimeInLocalTime(rideTimeInMilliseconds);
+    return rideTimeInLocalTime; 
+  }
+
+  _getTimeInLocalTime(timeInMilliseconds) {
+    const timeInGmt = new Date(timeInMilliseconds);
+    const timeInLocalTime = momentTimezone(timeInGmt).tz(TIMEZONE_NAME);
+    return timeInLocalTime;
   }
 }
