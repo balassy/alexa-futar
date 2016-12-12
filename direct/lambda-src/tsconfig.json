@@ -2,10 +2,12 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "ES6",
+        "outDir": "dist",
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true 
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ]    
 }
