@@ -1,6 +1,9 @@
 # Dependency directory
 node_modules
 
+# AWS credentials
+.aws/credentials.json
+
 # Build output
 dist
 dist.zip
