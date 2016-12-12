@@ -9,7 +9,9 @@ Useful Gulp tasks:
 
 `gulp pack` - Rebuilds the output ZIP package that contains the code of the Lambda function, and can be uploaded to AWS.
 
-`gulp pack:incremental` - Recompiles the TypeScript files and rebuilds the output ZIP package, using the previously downloaded Node modules in the output folder.  
+`gulp pack:incremental` - Recompiles the TypeScript files and rebuilds the output ZIP package, using the previously downloaded Node modules in the output folder.
+
+`gulp upload` - Uploads the previously built ZIP pack to AWS.  
 
 
 ## About the author

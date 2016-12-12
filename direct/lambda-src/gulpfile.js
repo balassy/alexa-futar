@@ -1,3 +1,4 @@
+const fs = require('fs');
 const AWS = require('aws-sdk');
 const gulp = require('gulp');
 const del = require('del');
@@ -37,34 +38,28 @@ gulp.task('npm', () =>
 );
 
 gulp.task('zip', () =>
-  gulp.src(['dist/**', '!dist/package.json'])
+  gulp.src(['dist/**/*.*', '!dist/package.json'])
     .pipe(zip('dist.zip'))
     .pipe(gulp.dest('./'))
 );
 
-gulp.task('upload', () => {
-  const FUNCTION_NAME = 'myNextRide'; // TODO
+gulp.task('upload', (done) => {
+  const lambdaConfig = require('./.aws/lambda-config.json');
 
-  AWS.config.loadFromPath('./.aws/credentials.json');
+  AWS.config.loadFromPath('./.aws/credentials-config.json');
 
   const lambda = new AWS.Lambda();
-  lambda.getFunction({FunctionName: FUNCTION_NAME}, (err, data) => {
+  const updateParams = {
+        FunctionName: lambdaConfig.functionName,
+        ZipFile: fs.readFileSync('dist.zip')
+  };
+
+  lambda.updateFunctionCode(updateParams, (err, functionConfiguration) => {
     if (err) {
-      if (err.statusCode === 404) {
-        gutil.log(`Unable to find ${FUNCTION_NAME}!`);
-      }
-      else {
-        gutil.log(`AWS API request failed! ${err}`);
-      }
-
-      return;
+      gutil.log('Updating the function code failed: ', err);
     }
-
-    gutil.log('AWS API call succeeded!');
-
-    // TODO: Incomplete, work in progress.
-  })
-
+    done();
+  });
 });
 
 gulp.task('pack', (done) => 
