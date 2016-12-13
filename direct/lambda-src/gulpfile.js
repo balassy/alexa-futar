@@ -69,3 +69,7 @@ gulp.task('pack', (done) =>
 gulp.task('pack:incremental', (done) => 
   runSequence(['clean:package'], ['tsc'], ['zip'], done)
 );
+
+gulp.task('update', (done) => 
+  runSequence(['pack:incremental'], ['upload'], done)
+);
