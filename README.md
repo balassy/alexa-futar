@@ -7,13 +7,15 @@ An AWS Lambda function and Amazon Alexa skill that allows querying Budapest publ
 
 Useful Gulp tasks:
 
-`gulp pack` - Rebuilds the output ZIP package that contains the code of the Lambda function, and can be uploaded to AWS.
+`gulp build` - Rebuilds the output ZIP package that contains the code of the Lambda function, and can be uploaded to AWS.
 
-`gulp pack:incremental` - Recompiles the TypeScript files and rebuilds the output ZIP package, using the previously downloaded Node modules in the output folder.
+`gulp build:incremental` - Recompiles the TypeScript files and rebuilds the output ZIP package, using the previously downloaded Node modules in the output folder.
 
-`gulp upload` - Uploads the previously built ZIP pack to AWS.
+`gulp deploy` - Uploads the previously built ZIP pack to AWS.
 
-`gulp update` - `gulp pack:incremental` + `gulp upload`
+`gulp update` - `gulp build:incremental` + `gulp deploy`
+
+`gulp test` - Runs the unit tests on the compiled code.
 
 
 ## About the author

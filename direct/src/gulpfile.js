@@ -4,20 +4,21 @@ const gulp = require('gulp');
 const del = require('del');
 const gutil = require('gulp-util');
 const install = require('gulp-install');
+const mocha = require('gulp-mocha');
 const run = require('gulp-run');
 const runSequence = require('run-sequence');
 const ts = require('gulp-typescript');
 const zip = require('gulp-zip');
 
-gulp.task('clean', (done) => 
+gulp.task('clean', (done) =>
   runSequence(['clean:dist'], ['clean:package'], done)
 );
 
-gulp.task('clean:dist', () => 
+gulp.task('clean:dist', () =>
   del(['./dist'])
 );
 
-gulp.task('clean:package', () => 
+gulp.task('clean:package', () =>
   del(['./dist.zip'])
 );
 
@@ -27,32 +28,32 @@ gulp.task('tsc', () => {
     .pipe(tsProject())
     .js
     .pipe(gulp.dest('./dist'));
-}); 
+});
 
-gulp.task('npm', () => 
+gulp.task('npm', () =>
   gulp.src('./package.json')
     .pipe(gulp.dest('dist/'))
-    .pipe(install({ 
+    .pipe(install({
       production: true,
-      noOptional: true 
+      noOptional: true
     }))
 );
 
 gulp.task('zip', () =>
-  gulp.src(['dist/**/*.*', '!dist/package.json', '!dist/run.js'])
+  gulp.src(['dist/**/*.*', '!dist/package.json', '!dist/test/**/*.*'])
     .pipe(zip('dist.zip'))
     .pipe(gulp.dest('./'))
 );
 
-gulp.task('upload', (done) => {
+gulp.task('deploy', (done) => {
   const lambdaConfig = require('./.aws/lambda-config.json');
 
   AWS.config.loadFromPath('./.aws/credentials-config.json');
 
   const lambda = new AWS.Lambda();
   const updateParams = {
-        FunctionName: lambdaConfig.functionName,
-        ZipFile: fs.readFileSync('dist.zip')
+    FunctionName: lambdaConfig.functionName,
+    ZipFile: fs.readFileSync('dist.zip')
   };
 
   lambda.updateFunctionCode(updateParams, (err, functionConfiguration) => {
@@ -63,22 +64,23 @@ gulp.task('upload', (done) => {
   });
 });
 
-gulp.task('pack', (done) => 
-  runSequence(['clean'], ['tsc', 'npm'], ['zip'], done)
+gulp.task('build', (done) =>
+  runSequence(['clean'], ['tsc', 'npm'], ['test', 'zip'], done)
 );
 
-gulp.task('pack:incremental', (done) => 
-  runSequence(['clean:package'], ['tsc'], ['zip'], done)
+gulp.task('build:incremental', (done) =>
+  runSequence(['clean:package'], ['tsc'], ['test', 'zip'], done)
 );
 
-gulp.task('update', (done) => 
-  runSequence(['pack:incremental'], ['upload'], done)
+gulp.task('update', (done) =>
+  runSequence(['build:incremental'], ['deploy'], done)
 );
 
-gulp.task('run', () =>
-  run('node dist/run').exec()
+gulp.task('test:run', () =>
+  gulp.src('dist/test/*.spec.js', { read: false })
+    .pipe(mocha({ reporter: 'spec' }))
 );
 
 gulp.task('test', (done) =>
-  runSequence(['tsc'], ['run'], done)
+  runSequence(['tsc'], ['test:run'], done)
 );
