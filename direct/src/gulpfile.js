@@ -4,6 +4,7 @@ const gulp = require('gulp');
 const del = require('del');
 const gutil = require('gulp-util');
 const install = require('gulp-install');
+const run = require('gulp-run');
 const runSequence = require('run-sequence');
 const ts = require('gulp-typescript');
 const zip = require('gulp-zip');
@@ -38,7 +39,7 @@ gulp.task('npm', () =>
 );
 
 gulp.task('zip', () =>
-  gulp.src(['dist/**/*.*', '!dist/package.json'])
+  gulp.src(['dist/**/*.*', '!dist/package.json', '!dist/run.js'])
     .pipe(zip('dist.zip'))
     .pipe(gulp.dest('./'))
 );
@@ -72,4 +73,12 @@ gulp.task('pack:incremental', (done) =>
 
 gulp.task('update', (done) => 
   runSequence(['pack:incremental'], ['upload'], done)
+);
+
+gulp.task('run', () =>
+  run('node dist/run').exec()
+);
+
+gulp.task('test', (done) =>
+  runSequence(['tsc'], ['run'], done)
 );
