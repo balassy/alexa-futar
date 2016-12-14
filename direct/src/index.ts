@@ -13,7 +13,7 @@ const handlers = {
   GetNextRideIntent: function () {
     this.emit('GetNextRide');
   },
-  GetNextRide: function () {   // tslint:disable-line no-function-expression
+  GetNextRide: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
     const futarService = new FutarService();
     futarService.getNextRides(TRAM_STOP_ID)
       .then((rides: IRideTimes) => {

@@ -8,7 +8,7 @@ const TIMEZONE_NAME = 'Europe/Budapest';
 const MINUTES_AFTER = 90;
 
 export class FutarService {
-  public getNextRides(stopId: string) {
+  public getNextRides(stopId: string): Promise<IRideTimes> {
     const url = `http://futar.bkk.hu/bkk-utvonaltervezo-api/ws/otp/api/where/arrivals-and-departures-for-stop.json?stopId=${stopId}&onlyDepartures=true&minutesBefore=0&minutesAfter=${MINUTES_AFTER}`;
 
     const options = {
