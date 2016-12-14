@@ -75,11 +75,11 @@ gulp.task('deploy', (done) => {
 });
 
 gulp.task('build', (done) =>
-  runSequence(['clean'], ['tsc', 'npm'], ['test', 'zip'], done)
+  runSequence(['clean'], ['tslint', 'tsc', 'npm'], ['test', 'zip'], done)
 );
 
 gulp.task('build:incremental', (done) =>
-  runSequence(['clean:package'], ['tsc'], ['test', 'zip'], done)
+  runSequence(['clean:package'], ['tslint', 'tsc'], ['test', 'zip'], done)
 );
 
 gulp.task('update', (done) =>
