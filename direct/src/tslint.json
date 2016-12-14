@@ -7,7 +7,6 @@
     "missing-jsdoc": false,
     "no-relative-imports": false,
     "export-name": false,
-    "no-reference": false,
     "no-for-in-array": false,
     "restrict-plus-operands": false,
 
