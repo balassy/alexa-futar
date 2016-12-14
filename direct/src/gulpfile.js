@@ -8,7 +8,10 @@ const mocha = require('gulp-mocha');
 const run = require('gulp-run');
 const runSequence = require('run-sequence');
 const ts = require('gulp-typescript');
+const tslint = require('gulp-tslint');
 const zip = require('gulp-zip');
+
+const tsProject = ts.createProject('tsconfig.json');
 
 gulp.task('clean', (done) =>
   runSequence(['clean:dist'], ['clean:package'], done)
@@ -22,13 +25,20 @@ gulp.task('clean:package', () =>
   del(['./dist.zip'])
 );
 
-gulp.task('tsc', () => {
-  const tsProject = ts.createProject('tsconfig.json');
-  return tsProject.src()
+gulp.task('tslint', () =>
+  tsProject.src()
+    .pipe(tslint({
+      formatter:  'verbose'
+    }))
+    .pipe(tslint.report({ summarizeFailureOutput: true }))
+);
+
+gulp.task('tsc', () =>
+  tsProject.src()
     .pipe(tsProject())
     .js
-    .pipe(gulp.dest('./dist'));
-});
+    .pipe(gulp.dest('./dist'))
+);
 
 gulp.task('npm', () =>
   gulp.src('./package.json')

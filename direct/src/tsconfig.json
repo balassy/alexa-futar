@@ -4,7 +4,9 @@
         "target": "ES6",
         "outDir": "dist",
         "noImplicitAny": true,
-        "allowSyntheticDefaultImports": true 
+        "allowSyntheticDefaultImports": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "exclude": [
         "node_modules",

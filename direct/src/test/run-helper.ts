@@ -1,8 +1,8 @@
 import * as uuid from 'uuid';
 
-export default class RunHelper {
+export class RunHelper {
 
-  buildEvent(intentName: string, slots: any = {}) {
+  public buildEvent(intentName: string, slots: any = {}) {
     const appGuid = uuid();
     const requestGuid = uuid();
     const sessionGuid = uuid();
@@ -17,7 +17,8 @@ export default class RunHelper {
         },
         attributes: {},
         user: {
-          userId: `amzn1.ask.account.${userGuid}`
+          userId: `amzn1.ask.account.${userGuid}`,
+          accessToken: ''
         },
         new: true
       },
@@ -25,6 +26,7 @@ export default class RunHelper {
         type: 'IntentRequest',
         requestId: `EdwRequestId.${requestGuid}`,
         locale: 'en-US',
+        reason: '',
         timestamp: now,
         intent: {
           name: intentName,
@@ -35,7 +37,7 @@ export default class RunHelper {
     };
   }
 
-  isSsml(response: any): boolean {
+  public isSsml(response: any): boolean {
     return response.response.outputSpeech.type === 'SSML';
   }
 

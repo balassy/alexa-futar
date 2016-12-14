@@ -1,15 +1,15 @@
-interface Ride {
-  arrivalTime: number,
-  departureTime: number,
-  predictedArrivalTime: number,
-  predictedDeparttureTime: number
+interface IRide {
+  arrivalTime: number;
+  departureTime: number;
+  predictedArrivalTime: number;
+  predictedDeparttureTime: number;
 }
 
-interface RideTimes {
-  firstRideAbsoluteTime: string,
-  firstRideRelativeTimeInMinutes: number,
-  firstRideRelativeTimeHumanized: string,
-  secondRideAbsoluteTime: string,
-  secondRideRelativeTimeHumanized: string,
-  combinedRelativeTimeHumanized: string
+interface IRideTimes {
+  firstRideAbsoluteTime: string;
+  firstRideRelativeTimeInMinutes: number;
+  firstRideRelativeTimeHumanized: string;
+  secondRideAbsoluteTime: string;
+  secondRideRelativeTimeHumanized: string;
+  combinedRelativeTimeHumanized: string;
 }

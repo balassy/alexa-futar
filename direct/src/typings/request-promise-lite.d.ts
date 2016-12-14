@@ -1,25 +1,25 @@
 declare module 'request-promise-lite' {
 
   namespace RequestPromiseLite {
-    interface Response {
-      statusCode: number,
-      body: any
+    interface IResponse {
+      statusCode: number;
+      body: any;
     }
 
-    interface RequestPromise<TResponse> {
+    interface IRequestPromise<TResponse> {
       then<TResponse>(onfulfilled?: (value: any) => TResponse | PromiseLike<TResponse>, onrejected?: (reason: any) => void): Promise<TResponse>;
-    } 
-    
-    export interface Options {
+    }
+
+    export interface IOptions {
       json: boolean;
       resolveWithFullResponse: boolean;
     }
 
-    export interface RequestPromiseLiteStatic {
-      get(url: string, options: Options): RequestPromise<Response>;
+    export interface IRequestPromiseLiteStatic {
+      get(url: string, options: IOptions): IRequestPromise<IResponse>;
     }
   }
 
-  var requestPromiseLite: RequestPromiseLite.RequestPromiseLiteStatic;
-  export = requestPromiseLite;      
+  const requestPromiseLite: RequestPromiseLite.IRequestPromiseLiteStatic;
+  export = requestPromiseLite;
 }

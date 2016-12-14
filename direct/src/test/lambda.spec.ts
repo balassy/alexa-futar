@@ -1,6 +1,6 @@
 import * as assert from 'assert';
-import RunHelper from './run-helper';
 import * as lambda from '../index';
+import { RunHelper } from './run-helper';
 
 describe('Lambda', () => {
   it('should return a speech string', (done) => {
@@ -20,5 +20,5 @@ describe('Lambda', () => {
     };
 
     lambda.handler(event, context);
-  })
+  });
 });

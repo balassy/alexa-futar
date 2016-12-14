@@ -1,0 +1,30 @@
+{
+  "rulesDirectory": [
+    "node_modules/tslint-microsoft-contrib"
+  ],
+  "extends": "tslint-microsoft-contrib/recommended_ruleset",
+  "rules": {
+    "missing-jsdoc": false,
+    "no-relative-imports": false,
+    "export-name": false,
+    "no-reference": false,
+    "no-for-in-array": false,
+    "restrict-plus-operands": false,
+
+    "linebreak-style": [true, "CRLF"],         // Git takes care of the conversion.
+    "max-line-length": [true, 300],            // The default 140 is too short, but we want to have a reasonable limit.
+    "no-any": false,                           // Simplifies testing.
+    "no-unnecessary-local-variable": false,    // Can make the code more readable. 
+    "one-line": false,                         // More readable when the next line is started with the keyword.
+    "function-name": [
+      true,
+      {
+        "method-regex": "^[a-z][\\w\\d]+$",
+        "private-method-regex": "^_[a-z][\\w\\d]+$",     // Allow prefixing private function names with an underscore.
+        "protected-method-regex": "^[a-z][\\w\\d]+$",
+        "static-method-regex": "^[A-Z_\\d]+$",
+        "function-regex": "^[a-z][\\w\\d]+$"
+      }
+    ]
+  }
+}

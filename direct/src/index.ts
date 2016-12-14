@@ -1,22 +1,22 @@
-'use strict';
+/* tslint:disable:no-invalid-this */
 
 import * as Alexa from 'alexa-sdk';
-import FutarService from './futar-service';
+import { FutarService } from './futar-service';
 
 const SKILL_NAME = 'Next Ride';
 const TRAM_STOP_ID = 'BKK_F02296';
 
 const handlers = {
-  'LaunchRequest': function () {
+  LaunchRequest: function () {
     this.emit('GetNextRide');
   },
-  'GetNextRideIntent': function () {
+  GetNextRideIntent: function () {
     this.emit('GetNextRide');
   },
-  'GetNextRide': function () {
+  GetNextRide: function () {   // tslint:disable-line no-function-expression
     const futarService = new FutarService();
     futarService.getNextRides(TRAM_STOP_ID)
-      .then((rides: RideTimes) => {
+      .then((rides: IRideTimes) => {
         let speechOutput: string;
 
         if (rides.firstRideRelativeTimeInMinutes >= 8) {
@@ -32,12 +32,12 @@ const handlers = {
           speechOutput = `Sorry, your next tram goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}, and you probably will not get it. You should wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the tram after this one.`;
         }
 
-        _emitSuccess(this, speechOutput);
+        emitSuccess(this, speechOutput);
       })
       .catch((err: Error) => {
-        console.log('CATCH ERROR: ', err);
+        console.log('CATCH ERROR: ', err);     // tslint:disable-line:no-console
         const details = `Sorry, your webservice call failed! More information: ${err.message}`;
-        _emitFailure(this, details);
+        emitFailure(this, details);
       });
   }
 };
@@ -46,7 +46,7 @@ const handlers = {
  * Produces a successful response to the user.
  * @param {string} speechOutput - The message to say to the user.
  */
-function _emitSuccess(handlerContext: AlexaHandler, speechOutput: string) {
+function emitSuccess(handlerContext: Alexa.Handler, speechOutput: string) {
   handlerContext.emit(':tell', speechOutput);
 }
 
@@ -54,7 +54,7 @@ function _emitSuccess(handlerContext: AlexaHandler, speechOutput: string) {
  * Produces a failure response to the user. 
  * @param {string} details - Additional information about the failure.
  */
-function _emitFailure(handlerContext: AlexaHandler, details: string) {
+function emitFailure(handlerContext: Alexa.Handler, details: string) {
   const speechOutput = 'Sorry, your webservice call failed! Check the Alexa app for more details.';
   const cardTitle = SKILL_NAME;
   const cardContent = details;
