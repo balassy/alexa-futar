@@ -1,9 +1,9 @@
 import * as uuid from 'uuid';
+const skillConfig = require('./../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
 export class RunHelper {
 
   public buildEvent(intentName: string, slots: any = {}) {
-    const appGuid = uuid();
     const requestGuid = uuid();
     const sessionGuid = uuid();
     const userGuid = uuid();
@@ -13,7 +13,7 @@ export class RunHelper {
       session: {
         sessionId: `SessionId.${sessionGuid}`,
         application: {
-          applicationId: `amzn1.ask.skill.${appGuid}`
+          applicationId: skillConfig.appId
         },
         attributes: {},
         user: {

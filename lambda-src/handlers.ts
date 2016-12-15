@@ -2,8 +2,8 @@
 
 import * as Alexa from 'alexa-sdk';
 import { FutarService } from './futar-service';
+const skillConfig = require('./config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
-const SKILL_NAME = 'Next Ride';
 const TRAM_STOP_ID = 'BKK_F02296';
 
 export const handlers: Alexa.Handlers = {
@@ -56,7 +56,7 @@ function emitSuccess(handlerContext: Alexa.Handler, speechOutput: string) {
  */
 function emitFailure(handlerContext: Alexa.Handler, details: string) {
   const speechOutput = 'Sorry, your webservice call failed! Check the Alexa app for more details.';
-  const cardTitle = SKILL_NAME;
+  const cardTitle = skillConfig.name;
   const cardContent = details;
   handlerContext.emit(':tellWithCard', speechOutput, cardTitle, cardContent);
 }

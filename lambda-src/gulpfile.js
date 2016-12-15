@@ -25,6 +25,11 @@ gulp.task('clean:package', () =>
   del(['./dist.zip'])
 );
 
+gulp.task('copy-config', () =>
+  gulp.src(['./config/skill.json'])
+    .pipe(gulp.dest('dist/config'))
+);
+
 gulp.task('tslint', () =>
   tsProject.src()
     .pipe(tslint({
@@ -56,9 +61,9 @@ gulp.task('zip', () =>
 );
 
 gulp.task('deploy', (done) => {
-  const lambdaConfig = require('./.aws/lambda-config.json');
+  const lambdaConfig = require('./config/lambda.json');
 
-  AWS.config.loadFromPath('./.aws/credentials-config.json');
+  AWS.config.loadFromPath('./config/aws-credentials.json');
 
   const lambda = new AWS.Lambda();
   const updateParams = {
@@ -75,11 +80,11 @@ gulp.task('deploy', (done) => {
 });
 
 gulp.task('build', (done) =>
-  runSequence(['clean'], ['tslint', 'tsc', 'npm'], ['test', 'zip'], done)
+  runSequence(['clean'], ['tslint', 'tsc', 'npm', 'copy-config'], ['test', 'zip'], done)
 );
 
 gulp.task('build:incremental', (done) =>
-  runSequence(['clean:package'], ['tslint', 'tsc'], ['test', 'zip'], done)
+  runSequence(['clean:package'], ['tslint', 'tsc', 'copy-config'], ['test', 'zip'], done)
 );
 
 gulp.task('update', (done) =>

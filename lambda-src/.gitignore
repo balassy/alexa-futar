@@ -2,8 +2,9 @@
 node_modules
 
 # AWS credentials
-.aws/credentials-config.json
-.aws/lambda-config.json
+config/aws-credentials.json
+config/lambda.json
+config/skill.json
 
 # Build output
 dist
