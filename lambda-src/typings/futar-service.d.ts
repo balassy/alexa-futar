@@ -13,3 +13,8 @@ interface IRideTimes {
   secondRideRelativeTimeHumanized: string;
   combinedRelativeTimeHumanized: string;
 }
+
+interface IStopData {
+  currentTime: number;
+  data: any;
+}

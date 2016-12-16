@@ -9,6 +9,18 @@ const MINUTES_AFTER = 90;
 
 export class FutarService {
   public getNextRides(stopId: string): Promise<IRideTimes> {
+    return this._getStopData(stopId)
+      .then(stopData => {
+        const currentTimeInMilliseconds = stopData.currentTime;
+        const firstRide = stopData.data.entry.stopTimes[0];
+        const secondRide = stopData.data.entry.stopTimes[1];
+
+        const rideTimes = this._getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
+        return rideTimes;
+      });
+  }
+
+  private _getStopData(stopId: string): Promise<IStopData> {
     const url = `http://futar.bkk.hu/bkk-utvonaltervezo-api/ws/otp/api/where/arrivals-and-departures-for-stop.json?stopId=${stopId}&onlyDepartures=true&minutesBefore=0&minutesAfter=${MINUTES_AFTER}`;
 
     const options = {
@@ -40,12 +52,12 @@ export class FutarService {
           throw new Error('Sorry, there are no more rides today.');
         }
 
-        const currentTimeInMilliseconds = body.currentTime;
-        const firstRide = body.data.entry.stopTimes[0];
-        const secondRide = body.data.entry.stopTimes[1];
+        const result: IStopData = {
+          currentTime: body.currentTime,
+          data: body.data
+        };
 
-        const rideTimes = this._getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
-        return rideTimes;
+        return result;
       });
   }
 
