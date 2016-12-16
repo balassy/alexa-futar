@@ -8,21 +8,46 @@ const TIMEZONE_NAME = 'Europe/Budapest';
 const MINUTES_AFTER = 90;
 
 export class FutarService {
+  public getNextRidesForStopAndRoute(stopId: string, routeId: string): Promise<IRideTimes> {
+    return this._getStopData(stopId)
+      .then(stopData => {
+        const currentTimeInMilliseconds: number = stopData.currentTime;
+
+        const tripIds: string[] = [];
+
+        const trips = stopData.data.references.trips;
+
+        Object.keys(trips).forEach((key: string) => {
+          const trip: ITrip = trips[key];
+          if (trip.routeId === routeId) {
+            tripIds.push(trip.id);
+          }
+        });
+
+        const stopTimes: IStopTime[] = stopData.data.entry.stopTimes.filter(stopTime => tripIds.indexOf(stopTime.tripId) > -1);
+
+        const firstRide: IStopTime = stopTimes[0];
+        const secondRide: IStopTime = stopTimes[1];
+
+        const rideTimes: IRideTimes = this._getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
+        return rideTimes;
+      });
+  }
+
   public getNextRides(stopId: string): Promise<IRideTimes> {
     return this._getStopData(stopId)
       .then(stopData => {
-        const currentTimeInMilliseconds = stopData.currentTime;
-        const firstRide = stopData.data.entry.stopTimes[0];
-        const secondRide = stopData.data.entry.stopTimes[1];
+        const currentTimeInMilliseconds: number = stopData.currentTime;
+        const firstRide: IStopTime = stopData.data.entry.stopTimes[0];
+        const secondRide: IStopTime = stopData.data.entry.stopTimes[1];
 
-        const rideTimes = this._getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
+        const rideTimes: IRideTimes = this._getNextRidesInLocalTime(currentTimeInMilliseconds, firstRide, secondRide);
         return rideTimes;
       });
   }
 
   private _getStopData(stopId: string): Promise<IStopData> {
     const url = `http://futar.bkk.hu/bkk-utvonaltervezo-api/ws/otp/api/where/arrivals-and-departures-for-stop.json?stopId=${stopId}&onlyDepartures=true&minutesBefore=0&minutesAfter=${MINUTES_AFTER}`;
-
     const options = {
       resolveWithFullResponse: true,
       json: true
@@ -61,7 +86,7 @@ export class FutarService {
       });
   }
 
-  private _getNextRidesInLocalTime(currentTimeInMilliseconds: number, firstRide: IRide, secondRide: IRide): IRideTimes {
+  private _getNextRidesInLocalTime(currentTimeInMilliseconds: number, firstRide: IStopTime, secondRide: IStopTime): IRideTimes {
     const currentTimeInLocalTime = this._getTimeInLocalTime(currentTimeInMilliseconds);
     const firstRideTimeInLocalTime = this._getRideTimeInLocalTime(firstRide);
     const secondRideTimeInLocalTime = this._getRideTimeInLocalTime(secondRide);
@@ -80,7 +105,7 @@ export class FutarService {
     };
   }
 
-  private _getRideTimeInLocalTime(ride: IRide): moment.Moment {
+  private _getRideTimeInLocalTime(ride: IStopTime): moment.Moment {
     const rideTimeInMilliseconds = (ride.predictedArrivalTime || ride.arrivalTime || ride.departureTime) * 1000;
     const rideTimeInLocalTime = this._getTimeInLocalTime(rideTimeInMilliseconds);
     return rideTimeInLocalTime;

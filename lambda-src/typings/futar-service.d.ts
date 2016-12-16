@@ -1,10 +1,3 @@
-interface IRide {
-  arrivalTime: number;
-  departureTime: number;
-  predictedArrivalTime: number;
-  predictedDeparttureTime: number;
-}
-
 interface IRideTimes {
   firstRideAbsoluteTime: string;
   firstRideRelativeTimeInMinutes: number;
@@ -16,5 +9,26 @@ interface IRideTimes {
 
 interface IStopData {
   currentTime: number;
-  data: any;
+  data: {
+      entry: {
+        stopTimes: IStopTime[];
+      };
+
+      references: {
+        trips: { [s: string]: ITrip };
+      };
+  };
+}
+
+interface IStopTime {
+  arrivalTime: number;
+  departureTime: number;
+  predictedArrivalTime: number;
+  predictedDeparttureTime: number;
+  tripId: string;
+}
+
+interface ITrip {
+  id: string;
+  routeId: string;
 }

@@ -1,6 +1,7 @@
-GetNextRideIntent a ride
-GetNextRideIntent the next
-GetNextRideIntent the next ride
-GetNextRideIntent my next ride
-GetNextRideIntent tell me my next ride
-GetNextRideIntent give me a ride
+GetNextRideIntent the next {Vehicle}
+GetNextRideIntent my next {Vehicle}
+GetNextRideIntent tell me my next {Vehicle}
+GetNextRideIntent tell me my next {Vehicle} ride
+GetNextRideIntent give me a {Vehicle}
+GetNextRideIntent when goes my next {Vehicle}
+GetNextRideIntent when is my next {Vehicle}

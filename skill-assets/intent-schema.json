@@ -1,7 +1,13 @@
 {
   "intents": [
     {
-      "intent": "GetNextRideIntent"
+      "intent": "GetNextRideIntent",
+      "slots": [
+        {
+          "name": "Vehicle",
+          "type": "VEHICLE_TYPES"
+        }
+      ]
     }
   ]
 }

@@ -5,6 +5,9 @@ import { FutarService } from './futar-service';
 const skillConfig = require('./config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
 const TRAM_STOP_ID = 'BKK_F02296';
+const BUS_STOP_ID = 'BKK_F02285';
+// const BUS_102_ROUTE_ID = 'BKK_1020';
+const BUS_110_ROUTE_ID = 'BKK_1100';
 
 export const handlers: Alexa.Handlers = {
   LaunchRequest: function () {
@@ -14,22 +17,27 @@ export const handlers: Alexa.Handlers = {
     this.emit('GetNextRide');
   },
   GetNextRide: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
+    const vehicleName: string = this.event.request.intent.slots.Vehicle.value;
+
     const futarService = new FutarService();
-    futarService.getNextRides(TRAM_STOP_ID)
-      .then((rides: IRideTimes) => {
+    const responsePromise = vehicleName === 'tram'
+      ? futarService.getNextRides(TRAM_STOP_ID)
+      : futarService.getNextRidesForStopAndRoute(BUS_STOP_ID, BUS_110_ROUTE_ID);
+
+    responsePromise.then((rides: IRideTimes) => {
         let speechOutput: string;
 
         if (rides.firstRideRelativeTimeInMinutes >= 8) {
-          speechOutput = `Your next tram goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can easily catch it. The second tram goes ${rides.secondRideRelativeTimeHumanized} later at ${rides.secondRideAbsoluteTime}.`;
+          speechOutput = `Your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can easily catch it. The second ${vehicleName} goes ${rides.secondRideRelativeTimeHumanized} later at ${rides.secondRideAbsoluteTime}.`;
         }
         else if (rides.firstRideRelativeTimeInMinutes < 8 && rides.firstRideRelativeTimeInMinutes >= 5) {
-          speechOutput = `Your next tram goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can still catch it. After that you have to wait another ${rides.secondRideRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime}.`;
+          speechOutput = `Your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can still catch it. After that you have to wait another ${rides.secondRideRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime}.`;
         }
         else if (rides.firstRideRelativeTimeInMinutes < 5 && rides.firstRideRelativeTimeInMinutes >= 2) {
-          speechOutput = `Your next tram goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You better run, GO, GO, GO! Or you can wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the tram after the next one.`;
+          speechOutput = `Your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You better run, GO, GO, GO! Or you can wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the ${vehicleName} after the next one.`;
         }
         else {
-          speechOutput = `Sorry, your next tram goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}, and you probably will not get it. You should wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the tram after this one.`;
+          speechOutput = `Sorry, your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized}, and you probably will not get it. You should wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the ${vehicleName} after this one.`;
         }
 
         emitSuccess(this, speechOutput);

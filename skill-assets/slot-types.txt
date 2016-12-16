@@ -1,0 +1,4 @@
+VEHICLE_TYPES:
+
+tram
+bus

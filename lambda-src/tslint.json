@@ -13,7 +13,7 @@
     "linebreak-style": [true, "CRLF"],         // Git takes care of the conversion.
     "max-line-length": [true, 300],            // The default 140 is too short, but we want to have a reasonable limit.
     "no-any": false,                           // Simplifies testing.
-    "no-unnecessary-local-variable": false,    // Can make the code more readable. 
+    "no-unnecessary-local-variable": false,    // Can make the code more readable.
     "one-line": false,                         // More readable when the next line is started with the keyword.
     "function-name": [
       true,

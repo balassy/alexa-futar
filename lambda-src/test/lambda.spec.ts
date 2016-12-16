@@ -3,9 +3,24 @@ import * as lambda from '../index';
 import { RunHelper } from './run-helper';
 
 describe('Lambda', () => {
-  it('should return a speech string', (done) => {
+  it('should return a speech string for bus', (done) => {
+    runTest('bus', done);
+  });
+
+  it('should return a speech string for tram', (done) => {
+    runTest('tram', done);
+  });
+
+  function runTest(vehicleName: string, done: Function) {
     const runHelper = new RunHelper();
-    const event = runHelper.buildEvent('GetNextRideIntent');
+    const intentName = 'GetNextRideIntent';
+    const slots = {
+      Vehicle: {
+        name: 'Vehicle',
+        value: vehicleName
+      }
+    };
+    const event = runHelper.buildEvent(intentName, slots);
 
     const context = {
       succeed: (response: any) => {
@@ -14,11 +29,11 @@ describe('Lambda', () => {
         done();
       },
 
-      fail: (err: any) =>  {
+      fail: (err: any) => {
         done(new Error(err));
       }
     };
 
     lambda.handler(event, context);
-  });
+  }
 });
