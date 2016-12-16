@@ -17,7 +17,7 @@ export const handlers: Alexa.Handlers = {
     this.emit('GetNextRide');
   },
   GetNextRide: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
-    const vehicleName: string = this.event.request.intent.slots.Vehicle.value;
+    const vehicleName: string =  (<Alexa.IntentRequest> this.event.request).intent.slots.Vehicle.value;
 
     const futarService = new FutarService();
     const responsePromise = vehicleName === 'tram'
