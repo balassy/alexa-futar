@@ -1,0 +1,163 @@
+{
+  "version": 2,
+  "status": "OK",
+  "code": 200,
+  "text": "OK",
+  "currentTime": 1482004158244,
+  "data": {
+    "limitExceeded": false,
+    "entry": {
+      "stopId": "BKK_F02296",
+      "alertIds": [],
+      "nearbyStopIds": [],
+      "stopTimes": [
+        {
+          "arrivalTime": 1482004860,
+          "departureTime": 1482004860,
+          "tripId": "BKK_B57405293",
+          "serviceDate": "20161217"
+        },
+        {
+          "arrivalTime": 1482006060,
+          "departureTime": 1482006060,
+          "tripId": "BKK_B57405299",
+          "serviceDate": "20161217"
+        },
+        {
+          "arrivalTime": 1482007260,
+          "departureTime": 1482007260,
+          "tripId": "BKK_B57405302",
+          "serviceDate": "20161217"
+        },
+        {
+          "arrivalTime": 1482008460,
+          "departureTime": 1482008460,
+          "tripId": "BKK_B57405305",
+          "serviceDate": "20161217"
+        }
+      ]
+    },
+    "references": {
+      "agencies": {
+        "BKK": {
+          "id": "BKK",
+          "name": "BKK",
+          "url": "http://www.bkk.hu",
+          "timezone": "Europe/Budapest",
+          "lang": "hu",
+          "phone": "+36 1 3 255 255"
+        }
+      },
+      "routes": {
+        "BKK_3592": {
+          "id": "BKK_3592",
+          "shortName": "59B",
+          "longName": null,
+          "description": "Márton Áron tér | Hűvösvölgy",
+          "type": "TRAM",
+          "url": null,
+          "color": "FFD800",
+          "textColor": "000000",
+          "agencyId": "BKK",
+          "bikesAllowed": false
+        },
+        "BKK_3591": {
+          "id": "BKK_3591",
+          "shortName": "59A",
+          "longName": null,
+          "description": "Márton Áron tér | Széll Kálmán tér M",
+          "type": "TRAM",
+          "url": null,
+          "color": "FFD800",
+          "textColor": "000000",
+          "agencyId": "BKK",
+          "bikesAllowed": true
+        },
+        "BKK_3590": {
+          "id": "BKK_3590",
+          "shortName": "59",
+          "longName": null,
+          "description": "Márton Áron tér | Szent János Kórház",
+          "type": "TRAM",
+          "url": null,
+          "color": "FFD800",
+          "textColor": "000000",
+          "agencyId": "BKK",
+          "bikesAllowed": true
+        }
+      },
+      "stops": {
+        "BKK_F02296": {
+          "id": "BKK_F02296",
+          "lat": 47.48914,
+          "lon": 19.009559,
+          "name": "Vas Gereben utca",
+          "code": "F02296",
+          "direction": "-162",
+          "locationType": 0,
+          "parentStationId": "BKK_CSF02297",
+          "type": "TRAM",
+          "wheelchairBoarding": true,
+          "routeIds": [
+            "BKK_3590",
+            "BKK_3591",
+            "BKK_3592"
+          ],
+          "stopColorType": "TRAM"
+        }
+      },
+      "trips": {
+        "BKK_B57405305": {
+          "id": "BKK_B57405305",
+          "routeId": "BKK_3591",
+          "shapeId": "BKK_B57405305",
+          "blockId": null,
+          "tripHeadsign": "Márton Áron tér",
+          "tripShortName": null,
+          "serviceId": "BKK_B57405ASZKM-0031",
+          "directionId": "0",
+          "bikesAllowed": true,
+          "wheelchairAccessible": false
+        },
+        "BKK_B57405302": {
+          "id": "BKK_B57405302",
+          "routeId": "BKK_3591",
+          "shapeId": "BKK_B57405302",
+          "blockId": null,
+          "tripHeadsign": "Márton Áron tér",
+          "tripShortName": null,
+          "serviceId": "BKK_B57405ASZKM-0031",
+          "directionId": "0",
+          "bikesAllowed": true,
+          "wheelchairAccessible": false
+        },
+        "BKK_B57405299": {
+          "id": "BKK_B57405299",
+          "routeId": "BKK_3591",
+          "shapeId": "BKK_B57405299",
+          "blockId": null,
+          "tripHeadsign": "Márton Áron tér",
+          "tripShortName": null,
+          "serviceId": "BKK_B57405ASZKM-0031",
+          "directionId": "0",
+          "bikesAllowed": true,
+          "wheelchairAccessible": false
+        },
+        "BKK_B57405293": {
+          "id": "BKK_B57405293",
+          "routeId": "BKK_3591",
+          "shapeId": "BKK_B57405293",
+          "blockId": null,
+          "tripHeadsign": "Márton Áron tér",
+          "tripShortName": null,
+          "serviceId": "BKK_B57405ASZKM-0031",
+          "directionId": "0",
+          "bikesAllowed": true,
+          "wheelchairAccessible": false
+        }
+      },
+      "alerts": {}
+    },
+    "class": "entryWithReferences"
+  }
+}

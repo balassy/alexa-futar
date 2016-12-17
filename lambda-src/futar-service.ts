@@ -35,6 +35,10 @@ export class FutarService {
   }
 
   public getNextRides(stopId: string): Promise<IRideTimes> {
+    if (!stopId) {
+      throw new Error('Please specify the stopId!');
+    }
+
     return this._getStopData(stopId)
       .then(stopData => {
         const currentTimeInMilliseconds: number = stopData.currentTime;

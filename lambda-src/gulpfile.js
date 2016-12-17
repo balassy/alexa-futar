@@ -30,6 +30,11 @@ gulp.task('copy-config', () =>
     .pipe(gulp.dest('dist/config'))
 );
 
+gulp.task('copy-test-data', () =>
+  gulp.src(['./test/test-data/*.*'])
+    .pipe(gulp.dest('dist/test/test-data'))
+);
+
 gulp.task('tslint', () =>
   tsProject.src()
     .pipe(tslint({
@@ -97,5 +102,5 @@ gulp.task('test:run', () =>
 );
 
 gulp.task('test', (done) =>
-  runSequence(['tsc'], ['test:run'], done)
+  runSequence(['tsc', 'copy-test-data'], ['test:run'], done)
 );
