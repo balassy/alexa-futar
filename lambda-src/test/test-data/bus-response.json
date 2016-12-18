@@ -3,7 +3,7 @@
   "status": "OK",
   "code": 200,
   "text": "OK",
-  "currentTime": 1482001498560,
+  "currentTime": 1482039355459,
   "data": {
     "limitExceeded": false,
     "entry": {
@@ -12,51 +12,60 @@
       "nearbyStopIds": [],
       "stopTimes": [
         {
-          "arrivalTime": 1482001860,
-          "departureTime": 1482001860,
-          "predictedArrivalTime": 1482001911,
-          "predictedDepartureTime": 1482001911,
-          "tripId": "BKK_B57098536",
-          "serviceDate": "20161217"
+          "departureTime": 1482039300,
+          "predictedDepartureTime": 1482039355,
+          "tripId": "BKK_B5709815",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482002520,
-          "departureTime": 1482002520,
-          "uncertain": true,
-          "tripId": "BKK_B60314686",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482040320,
+          "departureTime": 1482040320,
+          "predictedArrivalTime": 1482040380,
+          "predictedDepartureTime": 1482040380,
+          "tripId": "BKK_B5709819",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482003240,
-          "departureTime": 1482003240,
-          "uncertain": true,
-          "tripId": "BKK_1482000805065",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482040980,
+          "departureTime": 1482040980,
+          "tripId": "BKK_B6031674",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482003600,
-          "departureTime": 1482003600,
-          "uncertain": true,
-          "tripId": "BKK_B60314698",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482041520,
+          "departureTime": 1482041520,
+          "tripId": "BKK_B5709823",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482004800,
-          "departureTime": 1482004800,
-          "tripId": "BKK_B57098548",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482042180,
+          "departureTime": 1482042180,
+          "tripId": "BKK_B6031692",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482004800,
-          "departureTime": 1482004800,
-          "tripId": "BKK_B60314722",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482042720,
+          "departureTime": 1482042720,
+          "tripId": "BKK_B57098344",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482006840,
-          "departureTime": 1482006840,
-          "tripId": "BKK_B57098552",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482043380,
+          "departureTime": 1482043380,
+          "tripId": "BKK_B60316104",
+          "serviceDate": "20161218"
+        },
+        {
+          "arrivalTime": 1482043920,
+          "departureTime": 1482043920,
+          "tripId": "BKK_B57098352",
+          "serviceDate": "20161218"
+        },
+        {
+          "arrivalTime": 1482044580,
+          "departureTime": 1482044580,
+          "tripId": "BKK_B60316116",
+          "serviceDate": "20161218"
         }
       ]
     },
@@ -130,82 +139,106 @@
         }
       },
       "trips": {
-        "BKK_1482000805065": {
-          "id": "BKK_1482000805065",
-          "routeId": "BKK_1020",
-          "shapeId": "BKK_1482000805065",
-          "blockId": null,
-          "tripHeadsign": "Széll Kálmán tér M",
-          "tripShortName": null,
-          "serviceId": "BKK_ADDED-SERVICE-ServiceIdDate(2016-12-17)",
-          "directionId": null,
-          "bikesAllowed": false,
-          "wheelchairAccessible": false
-        },
-        "BKK_B57098536": {
-          "id": "BKK_B57098536",
-          "routeId": "BKK_1020",
-          "shapeId": "BKK_B57098536",
-          "blockId": null,
-          "tripHeadsign": "Széll Kálmán tér M",
-          "tripShortName": null,
-          "serviceId": "BKK_B57098ASVRM-0071",
-          "directionId": "1",
-          "bikesAllowed": false,
-          "wheelchairAccessible": true
-        },
-        "BKK_B57098548": {
-          "id": "BKK_B57098548",
-          "routeId": "BKK_1020",
-          "shapeId": "BKK_B57098548",
-          "blockId": null,
-          "tripHeadsign": "Széll Kálmán tér M",
-          "tripShortName": null,
-          "serviceId": "BKK_B57098ASVRM-0071",
-          "directionId": "1",
-          "bikesAllowed": false,
-          "wheelchairAccessible": true
-        },
-        "BKK_B60314722": {
-          "id": "BKK_B60314722",
+        "BKK_B6031692": {
+          "id": "BKK_B6031692",
           "routeId": "BKK_1100",
-          "shapeId": "BKK_B60314722",
-          "blockId": null,
-          "tripHeadsign": "Apor Vilmos tér",
-          "tripShortName": null,
-          "serviceId": "BKK_B60314RAASZBL-0031",
-          "directionId": "0",
-          "bikesAllowed": false,
-          "wheelchairAccessible": true
-        },
-        "BKK_B60314686": {
-          "id": "BKK_B60314686",
-          "routeId": "BKK_1100",
-          "shapeId": "BKK_B60314686",
+          "shapeId": "BKK_B6031692",
           "blockId": null,
           "tripHeadsign": "Bosnyák tér",
           "tripShortName": null,
-          "serviceId": "BKK_B60314RAASZBL-0031",
+          "serviceId": "BKK_B60316RAAVVBL-0031",
           "directionId": "0",
           "bikesAllowed": false,
           "wheelchairAccessible": true
         },
-        "BKK_B60314698": {
-          "id": "BKK_B60314698",
+        "BKK_B6031674": {
+          "id": "BKK_B6031674",
           "routeId": "BKK_1100",
-          "shapeId": "BKK_B60314698",
+          "shapeId": "BKK_B6031674",
           "blockId": null,
-          "tripHeadsign": "Apor Vilmos tér",
+          "tripHeadsign": "Bosnyák tér",
           "tripShortName": null,
-          "serviceId": "BKK_B60314RAASZBL-0031",
+          "serviceId": "BKK_B60316RAAVVBL-0031",
           "directionId": "0",
           "bikesAllowed": false,
           "wheelchairAccessible": false
         },
-        "BKK_B57098552": {
-          "id": "BKK_B57098552",
+        "BKK_B5709819": {
+          "id": "BKK_B5709819",
           "routeId": "BKK_1020",
-          "shapeId": "BKK_B57098552",
+          "shapeId": "BKK_B5709819",
+          "blockId": null,
+          "tripHeadsign": "Széll Kálmán tér M",
+          "tripShortName": null,
+          "serviceId": "BKK_B57098ASVRM-0071",
+          "directionId": "1",
+          "bikesAllowed": false,
+          "wheelchairAccessible": true
+        },
+        "BKK_B60316104": {
+          "id": "BKK_B60316104",
+          "routeId": "BKK_1100",
+          "shapeId": "BKK_B60316104",
+          "blockId": null,
+          "tripHeadsign": "Bosnyák tér",
+          "tripShortName": null,
+          "serviceId": "BKK_B60316RAAVVBL-0031",
+          "directionId": "0",
+          "bikesAllowed": false,
+          "wheelchairAccessible": true
+        },
+        "BKK_B60316116": {
+          "id": "BKK_B60316116",
+          "routeId": "BKK_1100",
+          "shapeId": "BKK_B60316116",
+          "blockId": null,
+          "tripHeadsign": "Bosnyák tér",
+          "tripShortName": null,
+          "serviceId": "BKK_B60316RAAVVBL-0031",
+          "directionId": "0",
+          "bikesAllowed": false,
+          "wheelchairAccessible": true
+        },
+        "BKK_B5709815": {
+          "id": "BKK_B5709815",
+          "routeId": "BKK_1020",
+          "shapeId": "BKK_B5709815",
+          "blockId": null,
+          "tripHeadsign": "Széll Kálmán tér M",
+          "tripShortName": null,
+          "serviceId": "BKK_B57098ASVRM-0071",
+          "directionId": "1",
+          "bikesAllowed": false,
+          "wheelchairAccessible": true
+        },
+        "BKK_B57098352": {
+          "id": "BKK_B57098352",
+          "routeId": "BKK_1020",
+          "shapeId": "BKK_B57098352",
+          "blockId": null,
+          "tripHeadsign": "Széll Kálmán tér M",
+          "tripShortName": null,
+          "serviceId": "BKK_B57098ASVRM-0071",
+          "directionId": "1",
+          "bikesAllowed": false,
+          "wheelchairAccessible": true
+        },
+        "BKK_B5709823": {
+          "id": "BKK_B5709823",
+          "routeId": "BKK_1020",
+          "shapeId": "BKK_B5709823",
+          "blockId": null,
+          "tripHeadsign": "Széll Kálmán tér M",
+          "tripShortName": null,
+          "serviceId": "BKK_B57098ASVRM-0071",
+          "directionId": "1",
+          "bikesAllowed": false,
+          "wheelchairAccessible": true
+        },
+        "BKK_B57098344": {
+          "id": "BKK_B57098344",
+          "routeId": "BKK_1020",
+          "shapeId": "BKK_B57098344",
           "blockId": null,
           "tripHeadsign": "Széll Kálmán tér M",
           "tripShortName": null,

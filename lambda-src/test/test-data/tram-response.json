@@ -3,37 +3,45 @@
   "status": "OK",
   "code": 200,
   "text": "OK",
-  "currentTime": 1482004158244,
+  "currentTime": 1482039356702,
   "data": {
     "limitExceeded": false,
     "entry": {
-      "stopId": "BKK_F02296",
+      "stopId": "BKK_F02297",
       "alertIds": [],
       "nearbyStopIds": [],
       "stopTimes": [
         {
-          "arrivalTime": 1482004860,
-          "departureTime": 1482004860,
-          "tripId": "BKK_B57405293",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482039420,
+          "departureTime": 1482039420,
+          "predictedArrivalTime": 1482039463,
+          "predictedDepartureTime": 1482039463,
+          "tripId": "BKK_B5740618",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482006060,
-          "departureTime": 1482006060,
-          "tripId": "BKK_B57405299",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482040620,
+          "departureTime": 1482040620,
+          "tripId": "BKK_B5740621",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482007260,
-          "departureTime": 1482007260,
-          "tripId": "BKK_B57405302",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482041820,
+          "departureTime": 1482041820,
+          "tripId": "BKK_B5740624",
+          "serviceDate": "20161218"
         },
         {
-          "arrivalTime": 1482008460,
-          "departureTime": 1482008460,
-          "tripId": "BKK_B57405305",
-          "serviceDate": "20161217"
+          "arrivalTime": 1482043020,
+          "departureTime": 1482043020,
+          "tripId": "BKK_B5740627",
+          "serviceDate": "20161218"
+        },
+        {
+          "arrivalTime": 1482044220,
+          "departureTime": 1482044220,
+          "tripId": "BKK_B5740630",
+          "serviceDate": "20161218"
         }
       ]
     },
@@ -87,13 +95,13 @@
         }
       },
       "stops": {
-        "BKK_F02296": {
-          "id": "BKK_F02296",
-          "lat": 47.48914,
-          "lon": 19.009559,
+        "BKK_F02297": {
+          "id": "BKK_F02297",
+          "lat": 47.489392,
+          "lon": 19.009745,
           "name": "Vas Gereben utca",
-          "code": "F02296",
-          "direction": "-162",
+          "code": "F02297",
+          "direction": "19",
           "locationType": 0,
           "parentStationId": "BKK_CSF02297",
           "type": "TRAM",
@@ -107,51 +115,63 @@
         }
       },
       "trips": {
-        "BKK_B57405305": {
-          "id": "BKK_B57405305",
+        "BKK_B5740627": {
+          "id": "BKK_B5740627",
           "routeId": "BKK_3591",
-          "shapeId": "BKK_B57405305",
+          "shapeId": "BKK_B5740627",
           "blockId": null,
-          "tripHeadsign": "Márton Áron tér",
+          "tripHeadsign": "Széll Kálmán tér M",
           "tripShortName": null,
-          "serviceId": "BKK_B57405ASZKM-0031",
-          "directionId": "0",
+          "serviceId": "BKK_B57406AVVKM-0031",
+          "directionId": "1",
           "bikesAllowed": true,
           "wheelchairAccessible": false
         },
-        "BKK_B57405302": {
-          "id": "BKK_B57405302",
+        "BKK_B5740618": {
+          "id": "BKK_B5740618",
           "routeId": "BKK_3591",
-          "shapeId": "BKK_B57405302",
+          "shapeId": "BKK_B5740618",
           "blockId": null,
-          "tripHeadsign": "Márton Áron tér",
+          "tripHeadsign": "Széll Kálmán tér M",
           "tripShortName": null,
-          "serviceId": "BKK_B57405ASZKM-0031",
-          "directionId": "0",
+          "serviceId": "BKK_B57406AVVKM-0031",
+          "directionId": "1",
           "bikesAllowed": true,
           "wheelchairAccessible": false
         },
-        "BKK_B57405299": {
-          "id": "BKK_B57405299",
+        "BKK_B5740624": {
+          "id": "BKK_B5740624",
           "routeId": "BKK_3591",
-          "shapeId": "BKK_B57405299",
+          "shapeId": "BKK_B5740624",
           "blockId": null,
-          "tripHeadsign": "Márton Áron tér",
+          "tripHeadsign": "Széll Kálmán tér M",
           "tripShortName": null,
-          "serviceId": "BKK_B57405ASZKM-0031",
-          "directionId": "0",
+          "serviceId": "BKK_B57406AVVKM-0031",
+          "directionId": "1",
           "bikesAllowed": true,
           "wheelchairAccessible": false
         },
-        "BKK_B57405293": {
-          "id": "BKK_B57405293",
-          "routeId": "BKK_3591",
-          "shapeId": "BKK_B57405293",
+        "BKK_B5740630": {
+          "id": "BKK_B5740630",
+          "routeId": "BKK_3590",
+          "shapeId": "BKK_B5740630",
           "blockId": null,
-          "tripHeadsign": "Márton Áron tér",
+          "tripHeadsign": "Szent János Kórház",
           "tripShortName": null,
-          "serviceId": "BKK_B57405ASZKM-0031",
-          "directionId": "0",
+          "serviceId": "BKK_B57406AVVKM-0031",
+          "directionId": "1",
+          "bikesAllowed": true,
+          "wheelchairAccessible": false
+        },
+        "BKK_B5740621": {
+          "id": "BKK_B5740621",
+          "routeId": "BKK_3591",
+          "shapeId": "BKK_B5740621",
+          "blockId": null,
+          "tripHeadsign": "Széll Kálmán tér M",
+          "tripShortName": null,
+          "serviceId": "BKK_B57406AVVKM-0031",
+          "directionId": "1",
           "bikesAllowed": true,
           "wheelchairAccessible": false
         }

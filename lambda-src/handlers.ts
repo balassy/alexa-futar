@@ -4,7 +4,7 @@ import * as Alexa from 'alexa-sdk';
 import { FutarService } from './futar-service';
 const skillConfig = require('./config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
-const TRAM_STOP_ID = 'BKK_F02296';
+const TRAM_STOP_ID = 'BKK_F02297';
 const BUS_STOP_ID = 'BKK_F02285';
 // const BUS_102_ROUTE_ID = 'BKK_1020';
 const BUS_110_ROUTE_ID = 'BKK_1100';

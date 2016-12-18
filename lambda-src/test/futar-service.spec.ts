@@ -28,11 +28,11 @@ describe('FutarService', () => {
       service.getNextRides(stopId)
         .then(rideTimes => {
           assert.equal(rideTimes.combinedRelativeTimeHumanized, '17 minutes');
-          assert.equal(rideTimes.firstRideAbsoluteTime, '20:11');
-          assert.equal(rideTimes.firstRideRelativeTimeInMinutes, 6);
-          assert.equal(rideTimes.firstRideRelativeTimeHumanized, '7 minutes');
-          assert.equal(rideTimes.secondRideAbsoluteTime, '20:22');
-          assert.equal(rideTimes.secondRideRelativeTimeHumanized, '10 minutes');
+          assert.equal(rideTimes.firstRideAbsoluteTime, '06:35');
+          assert.equal(rideTimes.firstRideRelativeTimeInMinutes, 0);
+          assert.equal(rideTimes.firstRideRelativeTimeHumanized, 'a minute');
+          assert.equal(rideTimes.secondRideAbsoluteTime, '06:53');
+          assert.equal(rideTimes.secondRideRelativeTimeHumanized, '18 minutes');
           done();
         });
     });
@@ -48,12 +48,12 @@ describe('FutarService', () => {
 
       service.getNextRides(stopId)
         .then(rideTimes => {
-          assert.equal(rideTimes.combinedRelativeTimeHumanized, '32 minutes');
-          assert.equal(rideTimes.firstRideAbsoluteTime, '21:01');
-          assert.equal(rideTimes.firstRideRelativeTimeInMinutes, 11);
-          assert.equal(rideTimes.firstRideRelativeTimeHumanized, '12 minutes');
-          assert.equal(rideTimes.secondRideAbsoluteTime, '21:21');
-          assert.equal(rideTimes.secondRideRelativeTimeHumanized, '20 minutes');
+          assert.equal(rideTimes.combinedRelativeTimeHumanized, '21 minutes');
+          assert.equal(rideTimes.firstRideAbsoluteTime, '06:37');
+          assert.equal(rideTimes.firstRideRelativeTimeInMinutes, 1);
+          assert.equal(rideTimes.firstRideRelativeTimeHumanized, '2 minutes');
+          assert.equal(rideTimes.secondRideAbsoluteTime, '06:57');
+          assert.equal(rideTimes.secondRideRelativeTimeHumanized, '19 minutes');
           done();
         });
     });
