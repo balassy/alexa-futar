@@ -11,13 +11,7 @@ const BUS_STOP_ID = 'BKK_F02285';
 const BUS_110_ROUTE_ID = 'BKK_1100';
 
 export const handlers: Alexa.Handlers = {
-  LaunchRequest: function () {
-    this.emit('GetNextRide');
-  },
-  GetNextRideIntent: function () {
-    this.emit('GetNextRide');
-  },
-  GetNextRide: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
+  GetNextRideIntent: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
     let vehicleName: string =  (<Alexa.IntentRequest> this.event.request).intent.slots.Vehicle.value;
 
     // Alexa recognizes the word 'bus' better, so any other word (even the empty slot) is handled as a 'tram'.
