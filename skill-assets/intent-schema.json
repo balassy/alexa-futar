@@ -8,6 +8,15 @@
           "type": "VEHICLE_TYPES"
         }
       ]
-    }
+    },
+    {
+      "intent": "BusNumberIntent",
+      "slots": [
+        {
+          "name": "BusNumber",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    }    
   ]
 }

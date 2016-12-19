@@ -2,6 +2,7 @@
 
 import * as Alexa from 'alexa-sdk';
 import { FutarService } from './futar-service';
+import { states } from './states';
 const skillConfig = require('./config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
 const TRAM_STOP_ID = 'BKK_F02297';
@@ -19,9 +20,15 @@ export const handlers: Alexa.Handlers = {
   GetNextRide: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
     let vehicleName: string =  (<Alexa.IntentRequest> this.event.request).intent.slots.Vehicle.value;
 
-    // Alexa recognizes the word 'bus' better, so any other word is handled as a 'tram'.
+    // Alexa recognizes the word 'bus' better, so any other word (even the empty slot) is handled as a 'tram'.
     if (vehicleName !== 'bus') {
       vehicleName = 'tram';
+    }
+
+    if (vehicleName === 'bus') {
+      this.handler.state = states.BUS_MODE;
+      this.emit(':ask', 'Which bus lane do you want to take?', 'Please say the number of the bus!');
+      return;
     }
 
     const futarService = new FutarService();
@@ -52,6 +59,9 @@ export const handlers: Alexa.Handlers = {
         const details = `Sorry, your webservice call failed! More information: ${err.message}`;
         emitFailure(this, details);
       });
+  },
+  Unhandled: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
+    this.emit(':ask', 'You can ask about your next bus or tram.', 'Try asking when goes your next bus or tram.');
   }
 };
 

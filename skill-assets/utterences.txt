@@ -5,3 +5,11 @@ GetNextRideIntent tell me my next {Vehicle} ride
 GetNextRideIntent give me a {Vehicle}
 GetNextRideIntent when goes my next {Vehicle}
 GetNextRideIntent when is my next {Vehicle}
+BusNumberIntent {BusNumber}
+BusNumberIntent is it {BusNumber}
+BusNumberIntent how about {BusNumber}
+BusNumberIntent could it be {BusNumber}
+BusNumberIntent bus number {BusNumber}
+BusNumberIntent bus lane {BusNumber}
+BusNumberIntent lane {BusNumber}
+BusNumberIntent route {BusNumber}
