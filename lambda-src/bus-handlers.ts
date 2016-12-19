@@ -23,7 +23,7 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
         break;
       }
       default: {
-        this.emit('Unhandled');
+        this.emit('Unhandled' + states.BUS_MODE);
         return;
       }
     }
