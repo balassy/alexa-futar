@@ -2,7 +2,22 @@ import * as Alexa from 'alexa-sdk';
 import * as uuid from 'uuid';
 const skillConfig = require('./../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
-export function buildEvent(intentName: string, slots: any = {}, state?: string) {
+export function run(lambda: { handler: Function }, event: Alexa.RequestBody) : Promise<Alexa.ResponseBody> {
+  return new Promise((resolve, reject) => {
+    const context = {
+      succeed: (response: Alexa.ResponseBody) => {
+        resolve(response);
+      },
+      fail: (err: any) => {
+        reject(new Error(err));
+      }
+    };
+
+    lambda.handler(event, context);
+  });
+}
+
+export function buildEvent(intentName: string, slots: any = {}, state?: string) : Alexa.RequestBody {
   const requestGuid = uuid();
   const sessionGuid = uuid();
   const userGuid = uuid();
@@ -23,12 +38,12 @@ export function buildEvent(intentName: string, slots: any = {}, state?: string) 
       },
       new: true
     },
-    request: {
+    request: <Alexa.IntentRequest> {
       type: 'IntentRequest',
       requestId: `EdwRequestId.${requestGuid}`,
       locale: 'en-US',
       reason: '',
-      timestamp: now,
+      timeStamp: now,
       intent: {
         name: intentName,
         slots: slots
