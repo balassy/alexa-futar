@@ -6,9 +6,6 @@ import { ResponseHelper } from './response-helper';
 import { states } from './states';
 
 const TRAM_STOP_ID = 'BKK_F02297';
-const BUS_STOP_ID = 'BKK_F02285';
-// const BUS_102_ROUTE_ID = 'BKK_1020';
-const BUS_110_ROUTE_ID = 'BKK_1100';
 
 const responseHelper = new ResponseHelper();
 
@@ -28,11 +25,7 @@ export const handlers: Alexa.Handlers = {
     }
 
     const futarService = new FutarService();
-    const responsePromise = vehicleName === 'tram'
-      ? futarService.getNextRides(TRAM_STOP_ID)
-      : futarService.getNextRidesForStopAndRoute(BUS_STOP_ID, BUS_110_ROUTE_ID);
-
-    responsePromise.then((rides: IRideTimes) => {
+    futarService.getNextRides(TRAM_STOP_ID).then((rides: IRideTimes) => {
         let speechOutput: string;
 
         if (rides.firstRideRelativeTimeInMinutes >= 8) {
