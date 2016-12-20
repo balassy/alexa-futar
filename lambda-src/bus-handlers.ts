@@ -2,11 +2,14 @@
 
 import * as Alexa from 'alexa-sdk';
 import { FutarService } from './futar-service';
+import { ResponseHelper } from './response-helper';
 import { states } from './states';
 
 const BUS_STOP_ID = 'BKK_F02285';
 const BUS_102_ROUTE_ID = 'BKK_1020';
 const BUS_110_ROUTE_ID = 'BKK_1100';
+
+const responseHelper = new ResponseHelper();
 
 export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_MODE, {
   BusNumberIntent: function(this: Alexa.Handler) {  // tslint:disable-line no-function-expression
@@ -23,7 +26,7 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
         break;
       }
       default: {
-        this.emit('Unhandled' + states.BUS_MODE);
+        responseHelper.redirect(this, 'Unhandled' + states.BUS_MODE);
         return;
       }
     }
@@ -47,16 +50,16 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
         }
 
         this.handler.state = states.DEFAULT;
-        this.emit(':tell', speechOutput);
+        responseHelper.tell(this, speechOutput);
       })
       .catch((err: Error) => {
-        console.log('CATCH ERROR: ', err);     // tslint:disable-line:no-console
+        console.log('CATCH ERROR WITHIN BusNumberIntent: ', err);     // tslint:disable-line:no-console
         const details = `Sorry, your webservice call failed! More information: ${err.message}`;
-        this.emit(':tell', details);
+        responseHelper.tellFailure(this, details);
       });
   },
 
   Unhandled: function (this: Alexa.Handler) {   // tslint:disable-line no-function-expression
-    this.emit(':ask', 'Sorry, I could not understand the bus number, please say 102 or 110!', 'Is it 102 or 110?');
+    responseHelper.ask(this, 'Sorry, I could not understand the bus number, please say 102 or 110!', 'Is it 102 or 110?');
   }
 });

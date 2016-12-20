@@ -1,5 +1,3 @@
-'use strict';
-
 import * as moment from 'moment';
 import * as momentTimezone from 'moment-timezone';
 import * as rp from 'request-promise-lite';
