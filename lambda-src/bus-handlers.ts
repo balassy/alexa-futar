@@ -12,8 +12,8 @@ const BUS_110_ROUTE_ID = 'BKK_1100';
 const responseHelper = new ResponseHelper();
 
 export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_MODE, {
-  BusNumberIntent: function(this: Alexa.Handler) {  // tslint:disable-line no-function-expression
-    const busNumber: string = (<Alexa.IntentRequest> this.event.request).intent.slots.BusNumber.value;
+  BusNumberIntent: function (this: Alexa.Handler) {  // tslint:disable-line no-function-expression
+    const busNumber: string = (<Alexa.IntentRequest>this.event.request).intent.slots.BusNumber.value;
 
     let routeId;
     switch (busNumber) {
@@ -34,23 +34,9 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
     const futarService = new FutarService();
     futarService.getNextRidesForStopAndRoute(BUS_STOP_ID, routeId)
       .then((rides: IRideTimes) => {
-        let speechOutput: string;
-
-        if (rides.firstRideRelativeTimeInMinutes >= 8) {
-          speechOutput = `Your next bus ${busNumber} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can easily catch it. The second bus goes ${rides.secondRideRelativeTimeHumanized} later at ${rides.secondRideAbsoluteTime}.`;
-        }
-        else if (rides.firstRideRelativeTimeInMinutes < 8 && rides.firstRideRelativeTimeInMinutes >= 5) {
-          speechOutput = `Your next bus ${busNumber} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can still catch it. After that you have to wait another ${rides.secondRideRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime}.`;
-        }
-        else if (rides.firstRideRelativeTimeInMinutes < 5 && rides.firstRideRelativeTimeInMinutes >= 2) {
-          speechOutput = `Your next bus ${busNumber} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You better run, GO, GO, GO! Or you can wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the bus after the next one.`;
-        }
-        else {
-          speechOutput = `Sorry, your next bus ${busNumber} goes in ${rides.firstRideRelativeTimeHumanized}, and you probably will not get it. You should wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the bus after this one.`;
-        }
-
+        const vehicleName = `bus #${busNumber}`;
+        responseHelper.tellRideTimes(this, vehicleName, rides);
         this.handler.state = states.DEFAULT;
-        responseHelper.tell(this, speechOutput);
       })
       .catch((err: Error) => {
         console.log('CATCH ERROR WITHIN BusNumberIntent: ', err);     // tslint:disable-line:no-console

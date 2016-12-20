@@ -7,8 +7,8 @@ export class ResponseHelper {
    * @param {Alexa.Handler} handlerContext - The value of the `this` parameter within an intent handler.
    * @param {string} speechOutput - The message to say to the user.
    */
-  public tell(handlerContext: Alexa.Handler, speechOutput: string) {
-    handlerContext.emit(':tell', speechOutput);
+  public ask(handlerContext: Alexa.Handler, speechOutput: string, repromptSpeech: string) {
+    handlerContext.emit(':ask', speechOutput, repromptSpeech);
   }
 
   /**
@@ -16,8 +16,33 @@ export class ResponseHelper {
    * @param {Alexa.Handler} handlerContext - The value of the `this` parameter within an intent handler.
    * @param {string} speechOutput - The message to say to the user.
    */
-  public ask(handlerContext: Alexa.Handler, speechOutput: string, repromptSpeech: string) {
-    handlerContext.emit(':ask', speechOutput, repromptSpeech);
+  public tell(handlerContext: Alexa.Handler, speechOutput: string) {
+    handlerContext.emit(':tell', speechOutput);
+  }
+
+  /**
+   * Produces the speech response from the specified ride times.
+   * @param {Alexa.Handler} handlerContext - The value of the `this` parameter within an intent handler.
+   * @param {string} vehicleName - The type and the number ofthe vehicle.
+   * @param {IRideTimes} rides - OBject that contains the times of the next and the second rides.
+   */
+  public tellRideTimes(handlerContext: Alexa.Handler, vehicleName: string, rides: IRideTimes) {
+    let speechOutput: string;
+
+    if (rides.firstRideRelativeTimeInMinutes >= 8) {
+      speechOutput = `Your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can easily catch it. The second ${vehicleName} goes ${rides.secondRideRelativeTimeHumanized} later at ${rides.secondRideAbsoluteTime}.`;
+    }
+    else if (rides.firstRideRelativeTimeInMinutes < 8 && rides.firstRideRelativeTimeInMinutes >= 5) {
+      speechOutput = `Your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You can still catch it. After that you have to wait another ${rides.secondRideRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime}.`;
+    }
+    else if (rides.firstRideRelativeTimeInMinutes < 5 && rides.firstRideRelativeTimeInMinutes >= 2) {
+      speechOutput = `Your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized} at ${rides.firstRideAbsoluteTime}.  You better run, GO! Or you can wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the ${vehicleName} after the next one.`;
+    }
+    else {
+      speechOutput = `Sorry, your next ${vehicleName} goes in ${rides.firstRideRelativeTimeHumanized}, and you probably will not get it. You should wait ${rides.combinedRelativeTimeHumanized} until ${rides.secondRideAbsoluteTime} for the ${vehicleName} after this one.`;
+    }
+
+    this.tell(handlerContext, speechOutput);
   }
 
   /**
