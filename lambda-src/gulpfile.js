@@ -98,7 +98,10 @@ gulp.task('update', (done) =>
 
 gulp.task('test:run', () =>
   gulp.src('dist/test/*.spec.js', { read: false })
-    .pipe(mocha({ reporter: 'spec' }))
+    .pipe(mocha({ 
+      reporter: 'spec', 
+      timeout: 5000 
+    }))
 );
 
 gulp.task('test', (done) =>
