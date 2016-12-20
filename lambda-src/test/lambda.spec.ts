@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as lambda from '../index';
+import * as lambda from './../src/index';
 import { RunHelper } from './run-helper';
 
 describe('Lambda', () => {

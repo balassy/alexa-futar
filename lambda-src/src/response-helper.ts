@@ -1,5 +1,5 @@
 import * as Alexa from 'alexa-sdk';
-const skillConfig = require('./config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
+const skillConfig = require('./../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
 export class ResponseHelper {
   /**
