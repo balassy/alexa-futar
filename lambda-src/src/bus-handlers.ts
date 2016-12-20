@@ -30,9 +30,9 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
     const futarService = new FutarService();
     futarService.getNextRidesForStopAndRoute(stopIds.BUS, routeId)
       .then((rides: IRideTimes) => {
+        this.handler.state = states.DEFAULT;
         const vehicleName = `bus #${busNumber}`;
         responseHelper.tellRideTimes(this, vehicleName, rides);
-        this.handler.state = states.DEFAULT;
       })
       .catch((err: Error) => {
         console.log('CATCH ERROR WITHIN BusNumberIntent: ', err);     // tslint:disable-line:no-console
