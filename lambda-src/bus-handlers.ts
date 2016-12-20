@@ -1,13 +1,9 @@
 /* tslint:disable:no-invalid-this */
 
 import * as Alexa from 'alexa-sdk';
+import { routeIds, states, stopIds } from './consts';
 import { FutarService } from './futar-service';
 import { ResponseHelper } from './response-helper';
-import { states } from './states';
-
-const BUS_STOP_ID = 'BKK_F02285';
-const BUS_102_ROUTE_ID = 'BKK_1020';
-const BUS_110_ROUTE_ID = 'BKK_1100';
 
 const responseHelper = new ResponseHelper();
 
@@ -18,11 +14,11 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
     let routeId;
     switch (busNumber) {
       case '110': {
-        routeId = BUS_110_ROUTE_ID;
+        routeId = routeIds.BUS_110;
         break;
       }
       case '102': {
-        routeId = BUS_102_ROUTE_ID;
+        routeId = routeIds.BUS_102;
         break;
       }
       default: {
@@ -32,7 +28,7 @@ export const busHandlers: Alexa.Handlers = Alexa.CreateStateHandler(states.BUS_M
     }
 
     const futarService = new FutarService();
-    futarService.getNextRidesForStopAndRoute(BUS_STOP_ID, routeId)
+    futarService.getNextRidesForStopAndRoute(stopIds.BUS, routeId)
       .then((rides: IRideTimes) => {
         const vehicleName = `bus #${busNumber}`;
         responseHelper.tellRideTimes(this, vehicleName, rides);

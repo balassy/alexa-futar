@@ -1,11 +1,9 @@
 /* tslint:disable:no-invalid-this */
 
 import * as Alexa from 'alexa-sdk';
+import { states, stopIds } from './consts';
 import { FutarService } from './futar-service';
 import { ResponseHelper } from './response-helper';
-import { states } from './states';
-
-const TRAM_STOP_ID = 'BKK_F02297';
 
 const responseHelper = new ResponseHelper();
 
@@ -24,7 +22,7 @@ export const handlers: Alexa.Handlers = {
     vehicleName = 'tram';
 
     const futarService = new FutarService();
-    futarService.getNextRides(TRAM_STOP_ID)
+    futarService.getNextRides(stopIds.TRAM)
       .then((rides: IRideTimes) => {
         responseHelper.tellRideTimes(this, 'tram', rides);
       })
