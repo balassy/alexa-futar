@@ -18,7 +18,7 @@ describe('Lambda', () => {
 
     const response1: Alexa.ResponseBody = await TestHelper.run(lambda, request1);
 
-    assert.equal(TestHelper.isSsml(response1), true, 'The service should return a speech text.');
+    assert.equal(TestHelper.isSsml(response1), true, 'A speech text should be returned');
     assert.equal(TestHelper.isSessionEnded(response1), false, 'The session should not be ended.');
     assert.equal(TestHelper.isStateSet(response1, states.BUS_MODE), true, 'The next state should be BUS.');
 
@@ -33,7 +33,7 @@ describe('Lambda', () => {
       states.BUS_MODE);
 
     const response2: Alexa.ResponseBody = await TestHelper.run(lambda, request2);
-    assert.equal(TestHelper.isSsml(response2), true, 'The service should return a speech text.');
+    assert.equal(TestHelper.isSsml(response2), true, 'A speech text should be returned.');
     assert.equal(TestHelper.isSessionEnded(response2), true, 'The session should be ended.');
   });
 
@@ -48,7 +48,7 @@ describe('Lambda', () => {
       });
 
     const response: Alexa.ResponseBody = await TestHelper.run(lambda, event);
-    assert.equal(TestHelper.isSsml(response), true, 'The service should return a speech text.');
+    assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned.');
     assert.equal(TestHelper.isSessionEnded(response), true, 'The session should be ended.');
   });
 });
