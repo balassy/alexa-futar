@@ -64,3 +64,7 @@ export function isSessionEnded(response: Alexa.ResponseBody): boolean {
 export function isStateSet(response: Alexa.ResponseBody, expectedState: string): boolean {
   return response.sessionAttributes.STATE === expectedState;
 }
+
+export function isScheduleString(response: Alexa.ResponseBody) : boolean {
+  return /your next/i.test(response.response.outputSpeech.ssml);
+}

@@ -1,54 +1,51 @@
 import * as Alexa from 'alexa-sdk';
 import * as assert from 'assert';
 import { states } from './../src/consts';
-import * as lambda from './../src/index';
+import * as IntentRunner from './intent-runner';
 import * as TestHelper from './test-helper';
 
-describe('Lambda', () => {
-  it('should return a speech string for bus', async () => {
-    const request1: Alexa.RequestBody = TestHelper.buildRequest(
-      'GetNextRideIntent',
-      {
-        Vehicle: {
-          name: 'Vehicle',
-          value: 'bus'
-        }
-      }
-    );
+describe('Lambda (end-to-end)', () => {
+  describe('GetNextRideIntent', () => {
+    it('should return a question for bus', async () => {
+      const response: Alexa.ResponseBody = await IntentRunner.callGetNextRide('bus');
 
-    const response1: Alexa.ResponseBody = await TestHelper.run(lambda, request1);
+      assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned');
+      assert.equal(TestHelper.isSessionEnded(response), false, 'The session should not be ended.');
+      assert.equal(TestHelper.isStateSet(response, states.BUS_MODE), true, 'The next state should be BUS.');
+    });
 
-    assert.equal(TestHelper.isSsml(response1), true, 'A speech text should be returned');
-    assert.equal(TestHelper.isSessionEnded(response1), false, 'The session should not be ended.');
-    assert.equal(TestHelper.isStateSet(response1, states.BUS_MODE), true, 'The next state should be BUS.');
-
-    const request2: Alexa.RequestBody = TestHelper.buildRequest(
-      'BusNumberIntent',
-      {
-        BusNumber: {
-          name: 'BusNumber',
-          value: '102'
-        }
-      },
-      states.BUS_MODE);
-
-    const response2: Alexa.ResponseBody = await TestHelper.run(lambda, request2);
-    assert.equal(TestHelper.isSsml(response2), true, 'A speech text should be returned.');
-    assert.equal(TestHelper.isSessionEnded(response2), true, 'The session should be ended.');
+    it('should return the schedule for tram', async () => {
+      const response: Alexa.ResponseBody = await IntentRunner.callGetNextRide('tram');
+      assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned.');
+      assert.equal(TestHelper.isSessionEnded(response), true, 'The session should be ended.');
+      assert.equal(TestHelper.isScheduleString(response), true, 'The schedule should be returned.');
+    });
   });
 
-  it('should return a speech string for tram', async () => {
-    const event: Alexa.RequestBody = TestHelper.buildRequest(
-      'GetNextRideIntent',
-      {
-        Vehicle: {
-          name: 'Vehicle',
-          value: 'tram'
-        }
-      });
+  describe('BusNumberIntent', () => {
+    beforeEach(async () => {
+      await IntentRunner.callGetNextRide('bus');
+    });
 
-    const response: Alexa.ResponseBody = await TestHelper.run(lambda, event);
-    assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned.');
-    assert.equal(TestHelper.isSessionEnded(response), true, 'The session should be ended.');
+    it('should return the schedule for bus #102', async () => {
+      const response: Alexa.ResponseBody = await IntentRunner.callBusNumber('102');
+      assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned.');
+      assert.equal(TestHelper.isSessionEnded(response), true, 'The session should be ended.');
+      assert.equal(TestHelper.isScheduleString(response), true, 'The schedule should be returned.');
+    });
+
+    it('should return the schedule for bus #110', async () => {
+      const response: Alexa.ResponseBody = await IntentRunner.callBusNumber('110');
+      assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned.');
+      assert.equal(TestHelper.isSessionEnded(response), true, 'The session should be ended.');
+      assert.equal(TestHelper.isScheduleString(response), true, 'The schedule should be returned.');
+    });
+
+    it('should return a question for an invalid bus number', async () => {
+      const response: Alexa.ResponseBody = await IntentRunner.callBusNumber('100');
+      assert.equal(TestHelper.isSsml(response), true, 'A speech text should be returned.');
+      assert.equal(TestHelper.isSessionEnded(response), false, 'The session should not be ended.');
+      assert.equal(TestHelper.isScheduleString(response), false, 'The schedule should not be returned.');
+    });
   });
 });
