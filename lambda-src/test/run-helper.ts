@@ -2,7 +2,7 @@ import * as Alexa from 'alexa-sdk';
 import * as uuid from 'uuid';
 const skillConfig = require('./../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
 
-export function run(lambda: { handler: Function }, event: Alexa.RequestBody) : Promise<Alexa.ResponseBody> {
+export function run(lambda: { handler: Function }, request: Alexa.RequestBody) : Promise<Alexa.ResponseBody> {
   return new Promise((resolve, reject) => {
     const context = {
       succeed: (response: Alexa.ResponseBody) => {
@@ -13,17 +13,17 @@ export function run(lambda: { handler: Function }, event: Alexa.RequestBody) : P
       }
     };
 
-    lambda.handler(event, context);
+    lambda.handler(request, context);
   });
 }
 
-export function buildEvent(intentName: string, slots: any = {}, state?: string) : Alexa.RequestBody {
+export function buildRequest(intentName: string, slots: any = {}, state?: string) : Alexa.RequestBody {
   const requestGuid = uuid();
   const sessionGuid = uuid();
   const userGuid = uuid();
   const now = new Date().toISOString();
 
-  const result = {
+  return {
     session: {
       sessionId: `SessionId.${sessionGuid}`,
       application: {
@@ -51,8 +51,6 @@ export function buildEvent(intentName: string, slots: any = {}, state?: string) 
     },
     version: '1.0'
   };
-
-  return result;
 }
 
 export function isSsml(response: Alexa.ResponseBody): boolean {
