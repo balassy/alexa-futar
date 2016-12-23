@@ -13,8 +13,35 @@ describe('Lambda (end-to-end)', () => {
       assert.isStateSet(response, states.BUS_MODE);
     });
 
+    it('should return a question for bus after a tram schedule', async () => {
+      await IntentRunner.callGetNextRide('tram');
+
+      const response: Alexa.ResponseBody = await IntentRunner.callGetNextRide('bus');
+      assert.isSsml(response);
+      assert.isSessionNotEnded(response);
+      assert.isNotSchedule(response);
+      assert.isStateSet(response, states.BUS_MODE);
+    });
+
     it('should return the schedule for tram', async () => {
       const response: Alexa.ResponseBody = await IntentRunner.callGetNextRide('tram');
+      assert.isSsml(response);
+      assert.isSessionEnded(response);
+      assert.isSchedule(response);
+    });
+
+    it('should return the schedule for tram twice', async () => {
+      await IntentRunner.callGetNextRide('tram');
+      const response: Alexa.ResponseBody = await IntentRunner.callGetNextRide('tram');
+      assert.isSsml(response);
+      assert.isSessionEnded(response);
+      assert.isSchedule(response);
+    });
+
+    it('should return the schedule for tram for unknown vehicles', async () => {
+      const response: Alexa.ResponseBody = await IntentRunner.callGetNextRide('ship');
+      const responseText = response.response.outputSpeech.ssml;
+      assert.equal(responseText.includes('tram'), true, `This was returned instead of a tram response: "${responseText}".`);
       assert.isSsml(response);
       assert.isSessionEnded(response);
       assert.isSchedule(response);
