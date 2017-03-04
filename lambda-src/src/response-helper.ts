@@ -1,5 +1,5 @@
 import * as Alexa from 'alexa-sdk';
-const skillConfig = require('./../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
+const skillConfig = require('./../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires
 
 export class ResponseHelper {
   /**
@@ -46,7 +46,7 @@ export class ResponseHelper {
   }
 
   /**
-   * Produces a failure response to the user. 
+   * Produces a failure response to the user.
    * @param {Alexa.Handler} handlerContext - The value of the `this` parameter within an intent handler.
    * @param {string} details - Additional information about the failure.
    */

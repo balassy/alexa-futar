@@ -3,7 +3,7 @@ import * as uuid from 'uuid';
 import { states } from './../../src/consts';
 import * as lambda from './../../src/index';
 
-const skillConfig = require('./../../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires 
+const skillConfig = require('./../../config/skill.json');  // tslint:disable-line no-require-imports no-var-requires
 
 export function callGetNextRide(vehicleType: string): Promise<Alexa.ResponseBody> {
   if (!vehicleType) {

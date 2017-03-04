@@ -12,6 +12,7 @@
 
     "linebreak-style": [true, "CRLF"],         // Git takes care of the conversion.
     "max-line-length": [true, 300],            // The default 140 is too short, but we want to have a reasonable limit.
+    "member-ordering": [true, { "order": "fields-first" }], // Fix for the "Warning: Got empty options" in tslint-microsoft-contrib@4.0.0. Probably can be removed when the next version is released.
     "no-any": false,                           // Simplifies testing.
     "no-unnecessary-local-variable": false,    // Can make the code more readable.
     "one-line": false,                         // More readable when the next line is started with the keyword.

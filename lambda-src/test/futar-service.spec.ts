@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import * as sinon from 'sinon';
 import { FutarService } from './../src/futar-service';
-const busResponse = require('./test-data/bus-response.json');    // tslint:disable-line no-require-imports no-var-requires mocha-no-side-effect-code 
-const tramResponse = require('./test-data/tram-response.json');  // tslint:disable-line no-require-imports no-var-requires mocha-no-side-effect-code 
+const busResponse = require('./test-data/bus-response.json');    // tslint:disable-line no-require-imports no-var-requires mocha-no-side-effect-code
+const tramResponse = require('./test-data/tram-response.json');  // tslint:disable-line no-require-imports no-var-requires mocha-no-side-effect-code
 
 describe('FutarService', () => {
   let service: FutarService;
