@@ -7,6 +7,7 @@ const install = require('gulp-install');
 const mocha = require('gulp-mocha');
 const run = require('gulp-run');
 const runSequence = require('run-sequence');
+const sourcemaps = require('gulp-sourcemaps');
 const ts = require('gulp-typescript');
 const tslint = require('gulp-tslint');
 const zip = require('gulp-zip');
@@ -45,8 +46,10 @@ gulp.task('tslint', () =>
 
 gulp.task('tsc', () =>
   tsProject.src()
-    .pipe(tsProject())
-    .js
+    .pipe(sourcemaps.init())
+      .pipe(tsProject())
+      .js
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./dist'))
 );
 
@@ -60,7 +63,7 @@ gulp.task('npm', () =>
 );
 
 gulp.task('zip', () =>
-  gulp.src(['dist/**/*.*', '!dist/package.json', '!dist/test/**/*.*'])
+  gulp.src(['dist/**/*.*', '!dist/package.json', '!dist/test/**/*.*', '!dist/**/src/*.map'])
     .pipe(zip('dist.zip'))
     .pipe(gulp.dest('./'))
 );

@@ -6,7 +6,8 @@
         "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "sourceMap": true
     },
     "exclude": [
         "node_modules",
