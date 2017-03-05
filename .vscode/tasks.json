@@ -1,0 +1,33 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "0.1.0",
+  "command": "gulp",
+  "isShellCommand": true,
+  "showOutput": "always",
+  "echoCommand": true,
+  "suppressTaskName": true,
+  "options": {
+    "cwd": "${workspaceRoot}/lambda-src"
+  },
+  "tasks": [
+    {
+      "taskName": "rebuild",
+      "args": ["build"]
+    },    
+    {
+      "taskName": "build",
+      "args": ["build:incremental"],
+      "isBuildCommand": true
+    },
+    {
+      "taskName": "clean",
+      "args": ["clean"]
+    },
+    {
+      "taskName": "test",
+      "args": ["test"],
+      "isTestCommand": true   
+    }
+  ]
+}
